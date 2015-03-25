@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var models = require('../model/artapp-model.js');
 var moment = require('moment');
-#var controller = require('../controller/users-controller.js');
+var controller = require('../controller/users-controller.js');
 
 
 /* 
@@ -65,4 +65,34 @@ router.get('/current', function(req, res) {
   }
 });
 
+/*
+GET - return exhibits that a particular user has visited
+*/
+router.get('/exhibits', function(req, res) {
+    controller.getExhibits(req, res);
+});
 
+
+
+/*
+GET -return saved resources
+*/
+router.get('/saved', function(req, res) {
+    controller.getSavedResources(req, res);
+});
+
+/*
+GET question by user
+*/
+router.get('/question', function(req, res) {
+    controller.getQuestions(req.res);
+});
+
+/*
+GET contributions by user
+*/
+router.get('/contribution', function(req, res) {
+    controller.getContribution(req.res);
+});
+
+module.exports = router;
