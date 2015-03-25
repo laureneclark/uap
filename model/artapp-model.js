@@ -94,3 +94,11 @@ var influenceSchema = mongoose.Schema({
 	type: String, //image or artist
 	description: String
 });
+
+exports.User = mongoose.model('User', userSchema);
+exports.Exhibit = mongoose.model('Exhibit', exhibitSchema);
+exports.Piece = mongoose.model('Piece', pieceSchema);
+exports.Question = mongoose.model('Question', questionSchema);
+exports.Contribution = mongoose.model('Contribution', contributionSchema);
+exports.Resource = mongoose.model('Resource', resourceSchema);
+exports.Influence = mongoose.model('Influence', influenceSchema);
