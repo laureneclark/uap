@@ -18,20 +18,23 @@ var userSchema = mongoose.Schema({
 });
 
 /*
-Schema for exhibit.  
+Schema for exhibit.  Exhibits are a collection of pieces as well as resources and influences.  
+Each exhibit has associated with it: a title, start and end date, location (the name of a museum or gallery), 
+a description, a list of resource objects, and a list of influence objects
 */ 
 var exhibitSchema = mongoose.Schema({
 	title: String
 	dateStart: Date, 
 	dateEnd: Date, 
-	location: String, //should this be a physical location object? 
+	location: String, //
 	description: String, 
 	resources: [{type: mongoose.Schema.Types.ObjectId, ref: 'Resource'}], 
 	influences: [{type: mongoose.Schema.Types.ObjectId, ref: 'Influence'}]
 });
 
 /*
-Schema for Piece
+Schema for Piece.  Each piece has associated with it: a title, the year the piece was created, 
+the artist, a description, and a link to an image of the piece.  
 */
 
 var pieceSchema = mongoose.Schema({
@@ -43,17 +46,21 @@ var pieceSchema = mongoose.Schema({
 });
 
 /*
-Schema for Question
+Schema for Question. Questions are the structure of the conversation.  Every contribution is in response to a question.
+Therefore the default question is "what is your reaction to the piece".  Each question has asscoaited with it: 
+the time posed, the user asking, the question text, and the piece it is in reference to.
+
 */
 var questionSchema = mongoose.Schema({
 	time: Date, 
 	author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}, 
-	text: String
+	text: {type: String, default: "What is your reaction to the piece?"}
 	piece: {type: mongoose.Schema.Types.ObjectId, ref: 'Piece'}
 });
 
 /*
-Schema for Contribution
+Schema for Contribution.  Each contribution is in response to a question and has associated with it: 
+the time posted, the user posting, the contribution text, and the question that it is in response to.  
 */
 var contibutionSchema = mongoose.Schema({
 	time: Date, 
@@ -63,15 +70,23 @@ var contibutionSchema = mongoose.Schema({
 });
 
 /*
-Schema for Resource
+Schema for Resource.  Resources are written pieces that aim to help a visitor better understand an exhibit.  
+Resources have associated with them: a name, a link to the source, a paragraph of text highlighting the resource, 
+a description, and the user who added the resource.  
 */
 var resourceSchema = mongoose.Schema({
 	name: String,
 	link: Link, 
 	highlight: String, 
+	description: String, 
 	addedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
+/*
+Schema for Influence.  Influenes are pieces of art and artists that influenced the collection of pieces in an exhibit.
+Associated with each influece are: a name (only if type == image), a link to an image (either the piece or one of the artist's pieces),
+the artist's name, a type (image or artist), and a decription of the influence on the exhibit pieces.
+*/ 
 var influenceSchema = mongoose.Schema({
 	name: String, 
 	image: Link, 
