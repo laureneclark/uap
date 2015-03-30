@@ -2,6 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var models = require('../model/artapp-model.js');
 var router = express.Router();
+var controller = require('../controller/contribution-controller.js');
 
 
 

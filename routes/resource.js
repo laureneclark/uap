@@ -2,19 +2,19 @@ var express = require('express');
 var passport = require('passport');
 var models = require('../model/artapp-model.js');
 var router = express.Router();
-var controller = require('../controller/influence-controller.js');
+var controller = require('../controller/resource-controller.js');
 
 /*
-POST creates an influence
+POST creates an resource
 */
 router.post('/', function(req, res) {
-	controller.addInfluence(req, res);
+	controller.addResource(req, res);
 });
 
 /*
-GET an inflence by ID
+GET an resource by ID
 */
-router.get('/:influence_id', function(req, res) {
+router.get('/:resource_id', function(req, res) {
 	controller.getByID(req, res);
 });
 

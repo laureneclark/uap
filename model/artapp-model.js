@@ -29,7 +29,8 @@ var exhibitSchema = mongoose.Schema({
 	location: String, //
 	description: String, 
 	resources: [{type: mongoose.Schema.Types.ObjectId, ref: 'Resource'}], 
-	influences: [{type: mongoose.Schema.Types.ObjectId, ref: 'Influence'}]
+	influences: [{type: mongoose.Schema.Types.ObjectId, ref: 'Influence'}],
+	pieces: [{type: mongoose.Schema.Types.ObjectId, ref: 'Piece'}]
 });
 
 /*

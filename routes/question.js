@@ -2,6 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var models = require('../model/artapp-model.js');
 var router = express.Router();
+var controller = require('../controller/question-controller.js');
 
 
 /*
@@ -15,7 +16,7 @@ router.get('/:q_id', function(req, res) {
 GET by exhibit id 
 */
 router.get('/exhibit/:exhibit_id', function(req, res) {
-	controller.getByQuest(req, res);
+	controller.getByPiece(req, res);
 });
 
 /*

@@ -25,7 +25,7 @@ GET a specific exhibit
 */ 
 router.get('/:exhibit_id', function(req, res){
 	if (!req.isAuthenitcated()) return res.status(401).send({"Error: not logged in"});
-	models.Exhibit.find({_id: req.params.exhibit_id}, function(err, doc) {
+	models.Exhibit.findById(req.params.exhibit_id, function(err, doc) {
 		if (err) {
 			res.status(400).json({err: "Exhibit does not exist"});
 		}
@@ -59,6 +59,13 @@ GET resources for an exhibit
 */
 router.get('/resources/:exhibit_id', function(req, res) {
 	controller.getResources(req, res);
+})
+
+/* 
+GET pieces for an exhibit
+*/
+router.get('/pieces/:exhibit_id', function(req, res) {
+	controller.getPieces(req, res);
 })
 
 module.exports = router;
