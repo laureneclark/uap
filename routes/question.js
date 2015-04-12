@@ -13,9 +13,9 @@ router.get('/:q_id', function(req, res) {
 });
 
 /*
-GET by exhibit id 
+GET questions by piece
 */
-router.get('/exhibit/:exhibit_id', function(req, res) {
+router.get('/piece/:piece_id', function(req, res) {
 	controller.getByPiece(req, res);
 });
 

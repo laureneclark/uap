@@ -23,14 +23,16 @@ Each exhibit has associated with it: a title, start and end date, location (the 
 a description, a list of resource objects, and a list of influence objects
 */ 
 var exhibitSchema = mongoose.Schema({
-	title: String
+	title: String,
 	dateStart: Date, 
 	dateEnd: Date, 
 	location: String, //
 	description: String, 
+	createdBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}, 
 	resources: [{type: mongoose.Schema.Types.ObjectId, ref: 'Resource'}], 
 	influences: [{type: mongoose.Schema.Types.ObjectId, ref: 'Influence'}],
-	pieces: [{type: mongoose.Schema.Types.ObjectId, ref: 'Piece'}]
+	pieces: [{type: mongoose.Schema.Types.ObjectId, ref: 'Piece'}],
+	published: {type: Boolean, default: false}
 });
 
 /*
@@ -43,7 +45,7 @@ var pieceSchema = mongoose.Schema({
 	year: String, //number or string?
 	artist: String, 
 	description: String, 
-	image: Link, 
+	image: String, 
 });
 
 /*
@@ -55,7 +57,7 @@ the time posed, the user asking, the question text, and the piece it is in refer
 var questionSchema = mongoose.Schema({
 	time: Date, 
 	author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}, 
-	text: {type: String, default: "What is your reaction to the piece?"}
+	text: {type: String, default: "What is your reaction to the piece?"}, 
 	piece: {type: mongoose.Schema.Types.ObjectId, ref: 'Piece'}
 });
 
@@ -63,7 +65,7 @@ var questionSchema = mongoose.Schema({
 Schema for Contribution.  Each contribution is in response to a question and has associated with it: 
 the time posted, the user posting, the contribution text, and the question that it is in response to.  
 */
-var contibutionSchema = mongoose.Schema({
+var contributionSchema = mongoose.Schema({
 	time: Date, 
 	author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}, 
 	text: String, 
@@ -77,7 +79,7 @@ a description, and the user who added the resource.
 */
 var resourceSchema = mongoose.Schema({
 	name: String,
-	link: Link, 
+	link: String, 
 	highlight: String, 
 	description: String, 
 	addedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
@@ -90,9 +92,9 @@ the artist's name, a type (image or artist), and a decription of the influence o
 */ 
 var influenceSchema = mongoose.Schema({
 	name: String, 
-	image: Link, 
+	image: String, 
 	artist: String, 
-	type: String, //image or artist
+	//type: String, //image or artist
 	description: String
 });
 

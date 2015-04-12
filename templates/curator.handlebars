@@ -1,0 +1,115 @@
+<div id="curator">
+	<div class = "page-header">
+	    <h1> {{user.local.username}}'s Curator Panel </h1>
+	</div>
+	<div class="error">
+	    {{#if error}}
+	      {{error}}
+	    {{/if}}
+	</div>
+	<!-- Form for creating new Exhibit -->
+  	<button class="btn btn-lg" data-toggle="modal" data-target="#new-exhibit-modal" id="create-exhibit-modal-btn"> Create an Exhibit </button>
+  	<!-- Modal -->
+  	<div class="modal fade" id="new-exhibit-modal" tabindex="-1" role="dialog" aria-labelledby="new-exhibit-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content"> 
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+          </button>
+          <h3 class="modal-title" id="new-group-modal-label">Create an Exhibit</h3>
+        </div>
+        <div class="modal-body">
+            <div class="form-error">
+              {{#if form-error}}
+                {{form-error}}
+              {{/if}}
+            </div>
+	 	<form id="exhibit-creation-form" class="form-inline">
+	     	<div class="form-group">
+	 	    	<label for="new-exhibit-title"> Title </label>
+				<input type="text" name="title" id ="new-exhibit-title" class="form-control" placeholder="Exhibit Title" required />
+			</div>
+
+			<div class="form group">
+				<label for="new-exhibit-dateStart"> Start Date </label>
+				<input type="datetime-local" name="dateStart" id="new-exhibit-dateStart" class="form-control" required>
+	      	</div>
+
+			<div class="form group">
+				<label for="new-exhibit-dateEnd"> End Date </label>
+				<input type="datetime-local" name="dateEnd" id="new-exhibit-dateEnd" class="form-control" required>
+	      	</div>
+
+	     	<div class="form-group">
+	 	    	<label for="new-exhibit-description"> Description </label> 
+				<input type="text" name="description" id ="new-exhibit-description" class="form-control" placeholder="Exhibit Description" required />
+			</div>
+
+	     	<div class="form-group">
+	 	    	<label for="new-exhibit-location"> Location </label> 
+				<input type="text" name="location" id ="new-exhibit-location" class="form-control" placeholder="Exhibit Location (i.e gallery or museum name)" required />
+			</div>
+  		</form>
+	</div>
+        <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+          <button type="button" class="btn edit-btn" id="create-exhibit-btn">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+	<!-- Form for creating new Curator -->
+  	<button class="btn btn-lg" data-toggle="modal" data-target="#new-curator-modal" id="create-curator-modal-btn"> Create a New Curator </button>
+  	<!-- Modal -->
+  	<div class="modal fade" id="new-curator-modal" tabindex="-1" role="dialog" aria-labelledby="new-exhibit-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content"> 
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+          </button>
+          <h3 class="modal-title" id="new-group-modal-label">Create a New Curator</h3>
+        </div>
+        <div class="modal-body">
+            <div class="form-error">
+              {{#if form-error}}
+                {{form-error}}
+              {{/if}}
+            </div>
+	 	<form id="curator-creation-form" class="form-inline">
+	     	<div class="form-group">
+	 	    	<label for="new-curator-username"> Username </label>
+				<input type="text" name="username" id ="new-curator-username" class="form-control" placeholder="Username" required />
+			</div>
+
+	     	<div class="form-group">
+	 	    	<label for="new-curator-password"> Password </label> 
+				<input type="text" name="password" id ="new-curator-password" class="form-control" placeholder="Password" required />
+			</div>
+
+	     	<div class="form-group">
+	 	    	<label for="new-curator-password-confirm"> Confirm Password </label> 
+				<input type="text" name="confirm" id ="new-curator-password-confirm" class="form-control" placeholder="Confirm Password" required />
+			</div>
+	     	<div class="form-group">
+	 	    	<label for="new-curator-email"> Email </label> 
+				<input type="text" name="email" id ="new-curator-email" class="form-control" placeholder="Email" required />
+			</div>
+  		</form>
+	</div>
+        <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+          <button type="button" class="btn edit-btn" id="create-curator-btn">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+	<div id="curatorexhibits">
+	     <h2> Exhibits I Created </h2>
+	     {{#each exhibits}}
+	     	{{>exhibit-preview}}
+	     {{/each}}
+
+	</div>
+</div>

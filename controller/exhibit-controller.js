@@ -5,6 +5,8 @@ var validator = require('validator');
 var controller = function() {
 	return {
 		addExhibit: function(req, res) {
+			console.log("I am adding an exhibit");
+			console.log(req);
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
 			var exhibit =  new models.Exhibit({
 				title: validator.toString(req.body.title),
@@ -12,15 +14,24 @@ var controller = function() {
 				dateEnd: moment(req.body.dateEnd), 
 				location: validator.toString(req.body.location), 
 				description: validator.toString(req.body.description), 
+				createdBy: req.user._id,
 				resources: [], 
 				influences: [], 
 				pieces: []
 			});
 			exhibit.save(function(err) {
-				if (err) return res.status(400).json({'error': 'Something went wrong creating the exhibit'});
+				console.log("I saved");
+				if (err) {
+					console.log("There was an error saving");
+					return res.status(400).json({'error': 'Something went wrong creating the exhibit'});
+				}
+				//console.log("This all happened");
+				//console.log(exhibit);
+				res.status(200).json(exhibit);
+				//console.log("WTF");
 			});
-			res.status(200).json(exhibit).end();
 		}, 
+
 
 		visit: function(req, res) {
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
@@ -39,7 +50,7 @@ var controller = function() {
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
 			models.Exhibit.findById(req.exhibitid, function(err, exhibit) {
 				if (err) return re.status(400).send(err);
-				res.status(200)json(exhibit.influences);
+				res.status(200).json(exhibit.influences);
 			});
 		},
 
@@ -47,7 +58,7 @@ var controller = function() {
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
 			models.Exhibit.findById(req.exhibitid, function(err, exhibit) {
 				if (err) return re.status(400).send(err);
-				res.status(200)json(exhibit.resources);
+				res.status(200).json(exhibit.resources);
 			});
 
 		}, 
@@ -56,7 +67,7 @@ var controller = function() {
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
 			models.Exhibit.findById(req.exhibitid, function(err, exhibit) {
 				if (err) return re.status(400).send(err);
-				res.status(200)json(exhibit.pieces);
+				res.status(200).json(exhibit.pieces);
 			});
 
 		}

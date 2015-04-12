@@ -13,10 +13,17 @@ var controller = require('../controller/users-controller.js');
 	Otherwise, return an error.
 */
 router.post('/', function(req, res, next){
-    console.log("I posted")
+    console.log(req);
     passport.authenticate('local-signup', function(err, user, info){
-        if (err) return res.status(400).send(err);
-        if (!user) return res.status(400).send({error:info});
+        console.log(user);
+        //console.log(info)
+        if (err) {
+            return res.status(400).send(err);
+        }
+        if (!user) {
+            console.log("There was an error!!")
+            return res.status(400).send({error:info});
+        }
         else {
             req.login(user, function(err){
                 if (err) return next(err);
@@ -26,6 +33,29 @@ router.post('/', function(req, res, next){
     })(req, res, next);
 });
 
+/* 
+    POST to signup an curator
+*/
+router.post('/curator', function(req, res, next){
+    passport.authenticate('local-signup', function(err, user, info){
+        console.log("I am trying to make a curator");
+        //console.log(user);
+        //console.log(info)
+        if (err) {
+            return res.status(400).send(err);
+        }
+        if (!user) {
+            console.log("There was an error!!")
+            return res.status(400).send({error:info});
+        }
+        else {
+            req.login(user, function(err){
+                if (err) return next(err);
+                return res.status(201).json({content:{'message': 'Successfully created user', 'user': user}}).end();
+            }); 
+        }    
+    })(req, res, next);
+});
 
 /*
 	POST to login with username/password 
@@ -39,7 +69,8 @@ router.post('/login', function(req, res, next){
         else {
             req.login(user, function(err){
                 if (err) return next(err);
-                return res.status(200).json({content:{'message': 'Successfully logged in', 'user': user}}).end();
+                console.log(user);
+                return res.status(200).json({'message': 'Successfully logged in', 'user': user}).end();
             });
         }
     })(req, res, next);
@@ -57,12 +88,19 @@ router.post('/logout', function(req, res){
 	GET - return the current logged in user. If no one is logged in, return {loggedIn: false};
 */
 router.get('/current', function(req, res) {
-    console.log("Why am I doing this?");
   if (req.user) {
     res.status(200).json({content:{loggedIn: true, user: req.user}}).end();
   } else {
     res.status(200).json({content:{loggedIn: false}}).end();
   }
+});
+
+/*
+GET Exhibits Created -must be a curator
+*/
+router.get('/created', function(req, res) {
+    controller.getCuratorExhibits(req, res);
+
 });
 
 /*
@@ -92,7 +130,9 @@ router.get('/question', function(req, res) {
 GET contributions by user
 */
 router.get('/contribution', function(req, res) {
-    controller.getContribution(req.res);
+    controller.getContributions(req.res);
 });
+
+
 
 module.exports = router;

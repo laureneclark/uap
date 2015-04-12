@@ -29,7 +29,7 @@ var controller = function() {
 					time: moment(), 
 					author: req.user_id, 
 					text: validator.toString(req.body.text), 
-					question: req.body.questid
+					question: req.body.quest
 				});
 				contribution.save(function(err) {
 					if (err) return res.status(400).json({'error': 'Something went wrong with creating the contribution!'});

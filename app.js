@@ -8,9 +8,16 @@ var Handlebars = require('handlebars');
 var passport = require('passport');
 var mongoose = require('mongoose');
 var session = require('express-session');
+var moment = require('moment');
 
 // var routes = require('./routes/index');
 // var users = require('./routes/users');
+//mongod --dbpath /Users/Lauren/Desktop/artapp_database
+
+connection_string = 'localhost/artapp'
+mongoose.connect('mongodb://' + connection_string);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'Mongoose connection error:'));
 
 var app = express();
 
@@ -39,6 +46,7 @@ var users = require('./routes/users');
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/exhibit', exhibit);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
