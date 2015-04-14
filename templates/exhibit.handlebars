@@ -18,7 +18,7 @@
           <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
           </button>
-          <h3 class="modal-title" id="add-resource-modal-label">Create an Exhibit</h3>
+          <h3 class="modal-title" id="add-resource-modal-label">Add a Resource</h3>
         </div>
         <div class="modal-body">
             <div class="form-error">
@@ -33,7 +33,7 @@
 			</div>
 
 			<div class="form group">
-				<label for="add-resource-link"> Start Date </label>
+				<label for="add-resource-link"> Link to Resource </label>
 				<input type="text" name="link" id="add-resource-link" class="form-control" required>
 	      	</div>
 
@@ -50,7 +50,7 @@
 	</div>
         <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal">Close</button>
-          <button type="button" class="btn edit-btn" id="add-resource-btn">Add</button>
+          <button type="button" class="btn edit-btn" exhibit_id={{exhibit._id}} id="add-resource-btn">Add</button>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@
           <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
           </button>
-          <h3 class="modal-title" id="add-influence-modal-label">Create an Exhibit</h3>
+          <h3 class="modal-title" id="add-influence-modal-label">Add an Influence</h3>
         </div>
         <div class="modal-body">
             <div class="form-error">
@@ -76,7 +76,7 @@
 	 	<form id="add-influence-form" class="form-inline">
 	     	<div class="form-group">
 	 	    	<label for="add-influence-name"> Name </label>
-				<input type="text" name="name" id ="add-influence-name" class="form-control" placeholder="Resource Name" required />
+				<input type="text" name="name" id ="add-influence-name" class="form-control" placeholder="Influence Name" required />
 			</div>
 
 			<div class="form group">
@@ -97,7 +97,7 @@
 	</div>
         <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal">Close</button>
-          <button type="button" class="btn edit-btn" id="add-influence-btn">Add</button>
+          <button type="button" class="btn edit-btn" exhibit_id="{{exhibit._id}} id="add-influence-btn">Add</button>
         </div>
       </div>
     </div>
@@ -148,7 +148,7 @@
 	</div>
         <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal">Close</button>
-          <button type="button" class="btn edit-btn" id="add-piece-btn">Add</button>
+          <button type="button" class="btn edit-btn" exhibit_id="{{exhibit._id}} id="add-piece-btn">Add</button>
         </div>
       </div>
     </div>
