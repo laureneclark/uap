@@ -19,5 +19,12 @@ router.get('/:piece_id', function(req, res) {
 	controller.getPiece(req, res);
 });
 
+/*
+GET contributions that make up conversation
+*/
+router.get('converstaion/:piece_id', function(req, res) {
+	controller.getConversation(req, res); //implement this 
+});
+
 
 module.exports = router;

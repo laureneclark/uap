@@ -37,16 +37,24 @@ $(document).on('click', '#logout-link', function(evt) {
 
 //Redirect to that Exhibit Page 
 $(document).on('click', '.view-exhibit-btn', function(evt) {
-  console.log("I clicked this");
     var exhibit_id = $(this).attr('id');
     $.get('exhibit/' + exhibit_id, function(response) {
-      console.log(response.createdBy);
-      console.log(currentUser);
       var madeByUser = (response.createdBy === currentUser._id);
-      console.log(madeByUser);
       loadPage('exhibit', {exhibit: response, madeByUser: madeByUser})
   });
 });
+
+//Redirect to that Piece Page 
+$(document).on('click', '.view-piece-btn', function(evt) {
+  console.log("I clicked this");
+    var exhibit_id = $(this).attr('id');
+    $.get('piece/' + exhibit_id, function(pieceResponse) {
+      var madeByUser = (response.createdBy === currentUser._id);
+      loadPage('exhibit', {piece: pieceResponse, conversation: conversationResponse })
+  });
+});
+
+//START TO LOAD SCREEN//
 
 $(document).ready(function() {
   //see if the current user is logged in, and if so, redirect to feed page
@@ -65,9 +73,10 @@ $(document).ready(function() {
   });
 });
 
+
 var loadGallery = function() {
-  $.get('/users/exhibits', function(response) {
-    loadPage('gallery', {user: currentUser});
+  $.get('/exhibit/', function(response) {
+    loadPage('gallery', {user: currentUser, exhibits: response});
   });
 }
 

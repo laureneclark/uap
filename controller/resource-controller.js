@@ -4,9 +4,10 @@ var validator = require('validator');
 
 var controller = function() {
 	return {
+
 		addResource: function(req, res) {
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
-			models.Exhibit.findOne({_id: exhibitid}, function(err, exhibit) {
+			models.Exhibit.findOne({_id: req.body.addTo}, function(err, exhibit) {
 				var resource = new models.Resource({
 					name: validator.toString(req.body.name),
 					link: req.body.link, 
@@ -22,6 +23,7 @@ var controller = function() {
 						res.status(200).json(exhibit).end();
 					});
 				});
+			});
 
 		}, 
 
@@ -39,7 +41,7 @@ var controller = function() {
 		save: function(req, res) {
 			models.User.findOne({'local.username': req.body.username}, function(err, usr) {
 				if (err) {
-					res.status(400).json(err: "There is no user with that username");
+					res.status(400).json({err: "There is no user with that username"});
 				}
 				models.Resource.findOne({_id: resourceid}, function(err, resource) {
 					usr.saved.push(resource);

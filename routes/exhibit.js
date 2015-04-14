@@ -12,8 +12,9 @@ var controller = require('../controller/exhibit-controller.js');
 GET all exhibits 
 */
 router.get('/', function(req, res) {
-	if (!req.isAuthenitcated()) return res.status(401).send({err: "Error, not logged in"});
-	models.Exhibit.find({}, function(err, doc){
+	console.log("Trying to get all exhibits");
+	//if (!req.isAuthenitcated()) return res.status(401).send({err: "Error, not logged in"});
+	models.Exhibit.find({}).populate('resources influences pieces').exec( function(err, doc){
 		if (err) {
 			res.status(400).json({err: "No Exhibits"});
 		}
@@ -34,7 +35,7 @@ router.get('/:exhibit_id', function(req, res){
 	// 	console.log("hsdlkhfh");
 	// 	return res.status(401).send({err: "Error: not logged in"});
 	// }
-	models.Exhibit.findOne({_id: req.params.exhibit_id}).exec(function(err, doc) {
+	models.Exhibit.findOne({_id: req.params.exhibit_id}).populate('resources influences pieces').exec(function(err, doc) {
 		console.log("I go to here!!");
 		console.log(doc);
 		if (err) {
@@ -49,7 +50,6 @@ router.get('/:exhibit_id', function(req, res){
 POST -creates exhibit
 */
 router.post('/', function(req, res) {
-	console.log("I am creating an exhibit");
 	controller.addExhibit(req, res);
 });
 
@@ -78,7 +78,6 @@ router.get('/resources/:exhibit_id', function(req, res) {
 GET pieces for an exhibit
 */
 router.get('/pieces/:exhibit_id', function(req, res) {
-	console.log("Trying to do this");
 	controller.getPieces(req, res);
 });
 
@@ -86,8 +85,14 @@ router.get('/pieces/:exhibit_id', function(req, res) {
 GET all exhibits created by logged in curator
 */
 router.get('/curator', function(req, res) {
-	console.log("exhibit/curator")
 	controller.getCuratorExhibits(req, res);
+});
+
+/*
+POST publish exhibit //
+*/
+router.post('/publish', function(req, res) {
+	controller.publish(req, res);
 });
 
 module.exports = router;

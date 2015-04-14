@@ -58,6 +58,8 @@ $(document).on('click', '#view-exhibit-btn', function(evt) {
   	$.get('exhibit/' + exhibit_id, function(response) {
   		console.log(response.createdBy);
   		console.log(currentUser);
+  		console.log(response.resources);
+    console.log(response.resources);
   		var madeByUser = (response.createdBy === currentUser);
   		console.log(madeByUser);
   		loadPage('exhibit', {exhibit: response, madeByUser: madeByUser})

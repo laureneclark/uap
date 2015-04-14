@@ -8,6 +8,8 @@
 	    {{/if}}
 	</div>
 	{{#if madeByUser}} 
+
+
 	<!-- Form for creating adding a Resource -->
   	<button class="btn btn-lg" data-toggle="modal" data-target="#add-resource-modal" id="add-resource-modal-btn"> Add Resource </button>
   	<!-- Modal -->
@@ -55,10 +57,16 @@
       </div>
     </div>
   </div>
-<!-- Form for creating adding an Influence -->
+
+
+
+
+
+
+	<!-- Form for creating adding a Influence-->
   	<button class="btn btn-lg" data-toggle="modal" data-target="#add-influence-modal" id="add-influence-modal-btn"> Add Influence </button>
   	<!-- Modal -->
-  	<div class="modal fade" id="add-influence-modal" tabindex="-1" role="dialog" aria-labelledby="new-exhibit-modal-label" aria-hidden="true">
+  	<div class="modal fade" id="add-influence-modal" tabindex="-1" role="dialog" aria-labelledby="add-influence-modal-label" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content"> 
         <div class="modal-header">
@@ -74,19 +82,15 @@
               {{/if}}
             </div>
 	 	<form id="add-influence-form" class="form-inline">
-	     	<div class="form-group">
-	 	    	<label for="add-influence-name"> Name </label>
-				<input type="text" name="name" id ="add-influence-name" class="form-control" placeholder="Influence Name" required />
-			</div>
+
+			<div class="form group">
+				<label for="add-influence-artist"> Artist </label>
+				<input type="text" name="artist" id="add-influence-artist" class="form-control" required>
+	      	</div>
 
 			<div class="form group">
 				<label for="add-influence-image"> Representative Image </label>
 				<input type="text" name="image" id="add-influence-image" class="form-control" required>
-	      	</div>
-
-			<div class="form group">
-				<label for="add-influence-artist"> Highlight </label>
-				<input type="text" name="artist" id="add-influence-artist" class="form-control" required>
 	      	</div>
 
 	     	<div class="form-group">
@@ -97,12 +101,16 @@
 	</div>
         <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal">Close</button>
-          <button type="button" class="btn edit-btn" exhibit_id="{{exhibit._id}} id="add-influence-btn">Add</button>
+          <button type="button" class="btn edit-btn" exhibit_id={{exhibit._id}} id="add-influence-btn">Add</button>
         </div>
       </div>
     </div>
   </div>
-<!-- Form for adding a Piece -->
+
+
+
+
+	<!-- Form for adding a piece-->
   	<button class="btn btn-lg" data-toggle="modal" data-target="#add-piece-modal" id="add-piece-modal-btn"> Add Piece </button>
   	<!-- Modal -->
   	<div class="modal fade" id="add-piece-modal" tabindex="-1" role="dialog" aria-labelledby="add-piece-modal-label" aria-hidden="true">
@@ -121,6 +129,7 @@
               {{/if}}
             </div>
 	 	<form id="add-piece-form" class="form-inline">
+
 	     	<div class="form-group">
 	 	    	<label for="add-piece-title"> Title </label>
 				<input type="text" name="title" id ="add-piece-title" class="form-control" placeholder="RPiece Title" required />
@@ -148,12 +157,13 @@
 	</div>
         <div class="modal-footer">
         <button type="button" class="btn" data-dismiss="modal">Close</button>
-          <button type="button" class="btn edit-btn" exhibit_id="{{exhibit._id}} id="add-piece-btn">Add</button>
+          <button type="button" class="btn edit-btn" exhibit_id={{exhibit._id}} id="add-piece-btn">Add</button>
         </div>
       </div>
     </div>
   </div>
-		<button class="btn publish" id={{_id}}> Publish </button>
+
+		<button class="btn btn-lg " exhibit_id={{exhibit._id}} id='publish'> Publish </button>
 	{{/if}}
 
 	<div class="exhibit-info">

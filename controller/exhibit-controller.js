@@ -5,8 +5,6 @@ var validator = require('validator');
 var controller = function() {
 	return {
 		addExhibit: function(req, res) {
-			console.log("I am adding an exhibit");
-			console.log(req);
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
 			var exhibit =  new models.Exhibit({
 				title: validator.toString(req.body.title),
@@ -20,17 +18,28 @@ var controller = function() {
 				pieces: []
 			});
 			exhibit.save(function(err) {
-				console.log("I saved");
 				if (err) {
 					console.log("There was an error saving");
 					return res.status(400).json({'error': 'Something went wrong creating the exhibit'});
 				}
-				//console.log("This all happened");
-				//console.log(exhibit);
 				res.status(200).json(exhibit);
-				//console.log("WTF");
 			});
 		}, 
+
+		publish: function(req, res) {
+			var e_id = req.body.exhibit_id;
+			models.Exhibit.findOne({_id: e_id}).populate('resources influences pieces').exec(function(err, foundExhibit) {
+				foundExhibit.published = true;
+				foundExhibit.save(function(err){
+					if (err) {
+						console.log("There was an error saving exhibit");
+						return res.status(400).json({'error': 'Something wen wrong updating the exhibit'});
+					}
+					res.status(200).json(foundExhibit);
+					
+				});
+			});
+		},
 
 
 		visit: function(req, res) {

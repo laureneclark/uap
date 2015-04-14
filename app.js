@@ -43,10 +43,15 @@ var index = require('./routes/index');
 var exhibit = require('./routes/exhibit');
 var piece = require('./routes/piece');
 var users = require('./routes/users');
+var resource = require('./routes/resource');
+var influence = require('./routes/influence');
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/exhibit', exhibit);
+app.use('/resource', resource);
+app.use('/influence', influence);
+app.use('/piece', piece);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

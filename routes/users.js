@@ -95,6 +95,8 @@ router.get('/current', function(req, res) {
   }
 });
 
+
+
 /*
 GET Exhibits Created -must be a curator
 */

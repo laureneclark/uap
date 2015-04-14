@@ -8,6 +8,7 @@ var controller = require('../controller/influence-controller.js');
 POST creates an influence
 */
 router.post('/', function(req, res) {
+	console.log("I clicked post an influence");
 	controller.addInfluence(req, res);
 });
 

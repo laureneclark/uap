@@ -4,14 +4,16 @@ var validator = require('validator');
 
 var controller = function() {
 	return {
-		addInluence: function(req, res) {
+		addInfluence: function(req, res) {
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
-			models.Exhibit.findOne({_id: exhibitid}, function(err, exhibit) {
+			console.log(req.body.addTo);
+			models.Exhibit.findOne({_id: req.body.addTo}, function(err, exhibit) {
+				console.log("Found the exhibit");
 				var influence = new models.Influence({
-					name: req.body.name, 
+					//name: req.body.name, 
 					image: req.body.image, 
 					artist: validator.toString(req.body.artist), 
-					type: validator.toString(req.body.type), 
+					//type: validator.toString(req.body.type), 
 					description: validator.toString(req.body.description)
 				});
 				influence.save(function(err) {
