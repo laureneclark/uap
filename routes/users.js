@@ -13,15 +13,15 @@ var controller = require('../controller/users-controller.js');
 	Otherwise, return an error.
 */
 router.post('/', function(req, res, next){
-    console.log(req);
+    //console.log(req);
     passport.authenticate('local-signup', function(err, user, info){
-        console.log(user);
+        //console.log(user);
         //console.log(info)
         if (err) {
             return res.status(400).send(err);
         }
         if (!user) {
-            console.log("There was an error!!")
+            //console.log("There was an error!!")
             return res.status(400).send({error:info});
         }
         else {
@@ -38,14 +38,14 @@ router.post('/', function(req, res, next){
 */
 router.post('/curator', function(req, res, next){
     passport.authenticate('local-signup', function(err, user, info){
-        console.log("I am trying to make a curator");
+        //console.log("I am trying to make a curator");
         //console.log(user);
         //console.log(info)
         if (err) {
             return res.status(400).send(err);
         }
         if (!user) {
-            console.log("There was an error!!")
+            //console.log("There was an error!!")
             return res.status(400).send({error:info});
         }
         else {
@@ -69,7 +69,7 @@ router.post('/login', function(req, res, next){
         else {
             req.login(user, function(err){
                 if (err) return next(err);
-                console.log(user);
+                //console.log(user);
                 return res.status(200).json({'message': 'Successfully logged in', 'user': user}).end();
             });
         }
@@ -89,8 +89,11 @@ router.post('/logout', function(req, res){
 */
 router.get('/current', function(req, res) {
   if (req.user) {
-    res.status(200).json({content:{loggedIn: true, user: req.user}}).end();
-  } else {
+    models.User.findOne({_id: req.user._id}).populate('saved visited contributed').exec(function(err, user) {
+        res.status(200).json({content:{loggedIn: true, user: user}}).end();
+    });
+  } 
+  else {
     res.status(200).json({content:{loggedIn: false}}).end();
   }
 });

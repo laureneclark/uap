@@ -12,7 +12,7 @@ var controller = require('../controller/exhibit-controller.js');
 GET all exhibits 
 */
 router.get('/', function(req, res) {
-	console.log("Trying to get all exhibits");
+	//console.log("Trying to get all exhibits");
 	//if (!req.isAuthenitcated()) return res.status(401).send({err: "Error, not logged in"});
 	models.Exhibit.find({}).populate('resources influences pieces').exec( function(err, doc){
 		if (err) {
@@ -27,17 +27,17 @@ router.get('/', function(req, res) {
 GET a specific exhibit
 */ 
 router.get('/:exhibit_id', function(req, res){
-	console.log("Trying very hard");
+	//console.log("Trying very hard");
 	//console.log(req);
-	console.log(req.params.exhibit_id);
+	//console.log(req.params.exhibit_id);
 	//console.log(models.Exhibit);
 	// if (!req.isAuthenitcated()) {
 	// 	console.log("hsdlkhfh");
 	// 	return res.status(401).send({err: "Error: not logged in"});
 	// }
 	models.Exhibit.findOne({_id: req.params.exhibit_id}).populate('resources influences pieces').exec(function(err, doc) {
-		console.log("I go to here!!");
-		console.log(doc);
+		//console.log("I go to here!!");
+		//console.log(doc);
 		if (err) {
 			console.log("There was an err");
 			res.status(400).json({err: "Exhibit does not exist"});

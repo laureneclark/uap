@@ -6,9 +6,9 @@ var controller = function() {
 	return {
 		addInfluence: function(req, res) {
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
-			console.log(req.body.addTo);
+			//console.log(req.body.addTo);
 			models.Exhibit.findOne({_id: req.body.addTo}, function(err, exhibit) {
-				console.log("Found the exhibit");
+				//console.log("Found the exhibit");
 				var influence = new models.Influence({
 					//name: req.body.name, 
 					image: req.body.image, 

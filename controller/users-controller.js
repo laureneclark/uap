@@ -6,7 +6,6 @@ var controller = function() {
 	return {
 
 		getExhibits: function(req, res) {
-			//console.log(req);
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
 			models.User.findOne({_id: req.user._id}, function(err, user) {
 				if (err) res.status(400).json({err: "There is no user with this username"});
@@ -37,13 +36,12 @@ var controller = function() {
 		}, 
 
 		getCuratorExhibits: function(req, res) {
-			console.log("I am here");
-			console.log(req.user);
+			//console.log(req.user);
 			if (!req.isAuthenticated()) return res.status(401).send({'error': 'You are not logged in'});
 			if (req.user.role != 'curator') return res.status(401).send({'error': "Sorry, you are not a curator"});
 			
 			models.Exhibit.find({createdBy: req.user._id}).populate('influences resources pieces').exec(function(err, exhibits) {
-				console.log(exhibits);
+				//console.log(exhibits);
 				if (err) return res(400).send(err);
 				res.status(200).json(exhibits);
 			});

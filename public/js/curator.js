@@ -33,17 +33,17 @@ var loadPage = function(template, data) {
 });*/
 
 $(document).on('click', '#create-exhibit-btn', function(evt) {
-	console.log("I Clicked Create");
+	//console.log("I Clicked Create");
 	evt.preventDefault();
 	var formData = helpers.getFormData($("#exhibit-creation-form"));
 	formData.dateStart = moment(formData.startDate).toDate();
 	formData.dateEnd = moment(formData.endDate).toDate();
-	console.log(formData);
+	//console.log(formData);
 	$.post(
 		'/exhibit/',
 		formData
 	).done(function(response) {
-		console.log("I am done creating");
+		//console.log("I am done creating");
 		window.location.href = '/';
 	}).fail(function(jqxhr) {
 		var response = $.parseJSON(jqxhr.responseText);
@@ -53,15 +53,15 @@ $(document).on('click', '#create-exhibit-btn', function(evt) {
 
 //Redirect to that Exhibit Page 
 $(document).on('click', '#view-exhibit-btn', function(evt) {
-	console.log("I clicked this");
+	//console.log("I clicked this");
   	var exhibit_id = $(this).attr('id');
   	$.get('exhibit/' + exhibit_id, function(response) {
-  		console.log(response.createdBy);
-  		console.log(currentUser);
-  		console.log(response.resources);
-    console.log(response.resources);
+  		//console.log(response.createdBy);
+  		//console.log(currentUser);
+  		//console.log(response.resources);
+    //console.log(response.resources);
   		var madeByUser = (response.createdBy === currentUser);
-  		console.log(madeByUser);
+  		//console.log(madeByUser);
   		loadPage('exhibit', {exhibit: response, madeByUser: madeByUser})
 	});
 });

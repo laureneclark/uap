@@ -5,7 +5,6 @@ Handlebars.registerPartial('influence-panel', Handlebars.templates['influence-pa
 Handlebars.registerPartial('piece-preview', Handlebars.templates['piece-preview']);
 
 var loadPage = function(template, data) {
-	console.log("loading a page");
   data = data || {};
   var temp = Handlebars.templates[template](data)
   $('#main-container').html(temp);
@@ -58,6 +57,34 @@ $(document).on('click', '#add-piece-btn', function(evt) {
     var response = $.parseJSON(jqxhr.responseText);
     //loadPage('exhibit', {exhibit: }
   });
+});
+
+$(document).on('click', '#save-resource-btn', function(evt) {
+  evt.preventDefault();
+  var data = {};
+  data.resource_id = $(this).attr('resource_id');
+  $.post(
+    '/resource/save', 
+    data
+    ).done(function(response) {
+      window.location.href = '/';
+    }).fail(function(jqxhr){
+      var response = $.parseJSON(jqxhr.responseText);
+    });
+});
+
+$(document).on('click', '#visit-exhibit-btn', function(evt) {
+  evt.preventDefault();
+  var data = {};
+  data.exhibit_id = $(this).attr('exhibit_id');
+  $.post(
+    '/exhibit/visit', 
+    data
+    ).done(function(response) {
+      window.location.href = '/';
+    }).fail(function(jqxhr){
+      var response = $.parseJSON(jqxhr.responseText);
+    });
 });
 
 //Publish Exhibit

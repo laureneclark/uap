@@ -46,11 +46,18 @@ var controller = function() {
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
 			models.User.findById(req.user._id, function(err, user) {
 				if (err) return res.status(400).send(err);
-				models.Exhibit.findOne({_id: req.body.exhibitid}, function(err, exhibit) {
-					user.visited.push(exhibit);
-					user.save(function(err) {
-						if (err) return res.status(400).send(err);
-					});
+				models.Exhibit.findOne({_id: req.body.exhibit_id}, function(err, exhibit) {
+					if (user.visited.indexOf(exhibit._id) < 0) {
+						//console.log(exhibit);
+						user.visited.push(exhibit);
+						user.save(function(err) {
+							if (err) return res.status(400).send(err);
+							res.status(200).json(exhibit);
+						});
+					}
+					else {
+						res.status(200).json(exhibit);
+					}
 				});
 			});
 		}, 
@@ -71,6 +78,7 @@ var controller = function() {
 			});
 
 		}, 
+
 
 		getPieces: function(req, res) {
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});

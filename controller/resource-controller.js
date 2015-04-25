@@ -10,7 +10,7 @@ var controller = function() {
 			models.Exhibit.findOne({_id: req.body.addTo}, function(err, exhibit) {
 				var resource = new models.Resource({
 					name: validator.toString(req.body.name),
-					link: req.body.link, 
+					link: "http://" + req.body.link, 
 					highlight: validator.toString(req.body.highlight), 
 					description: validator.toString(req.body.description), 
 					addedBy: req.user._id
@@ -39,15 +39,22 @@ var controller = function() {
 
 		//user saves a resource 
 		save: function(req, res) {
-			models.User.findOne({'local.username': req.body.username}, function(err, usr) {
+			models.User.findOne({_id: req.user._id}, function(err, usr) {
 				if (err) {
 					res.status(400).json({err: "There is no user with that username"});
 				}
-				models.Resource.findOne({_id: resourceid}, function(err, resource) {
-					usr.saved.push(resource);
-					usr.save(function(err) {
-						if (err) res.status(400).json({err: "Error in saving resource"})
-					});
+				models.Resource.findOne({_id: req.body.resource_id}, function(err, resource) {
+					if (usr.saved.indexOf(resource._id) < 0) {
+						usr.saved.push(resource);
+						usr.save(function(err) {
+							if (err) res.status(400).json({err: "Error in saving resource"})
+								res.status(200).json(resource);
+						});
+					} 
+					else {
+						res.status(200).json(resource);
+					}
+
 				});
 			});
 

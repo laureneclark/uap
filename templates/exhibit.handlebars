@@ -7,6 +7,7 @@
 	      {{error}}
 	    {{/if}}
 	</div>
+		<button class="edit-btn btn-sm" id="visit-exhibit-btn" exhibit_id={{exhibit._id}}>Visit</button>
 	{{#if madeByUser}} 
 
 
@@ -35,8 +36,8 @@
 			</div>
 
 			<div class="form group">
-				<label for="add-resource-link"> Link to Resource </label>
-				<input type="text" name="link" id="add-resource-link" class="form-control" required>
+				<label for="add-resource-link"> Link to Resource http://</label>
+				<input type="url" name="link" id="add-resource-link" class="form-control" required>
 	      	</div>
 
 			<div class="form group">
@@ -167,31 +168,47 @@
 	{{/if}}
 
 	<div class="exhibit-info">
-		<h2> {{exhibit.description}}</h2>
-		<h2> Start Date: {{exhibit.dateStart}} </h2>
-		<h2> End Date: {{exhibit.dateEnd}} </h2>
-		<h2> Location: {{exhibit.location}} </h2>
+		<h5> {{exhibit.description}}</h5>
+		<h5> Start Date: {{exhibit.dateStart}} </h5>
+		<h5> End Date: {{exhibit.dateEnd}} </h5>
+		<h5> Location: {{exhibit.location}} </h5>
 	</div>
 
-	<div class="resources">
-		<h2> Resources </h2>
+	<div>
+<div class="exhibit-tabpanel" role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#pieces" id="pieces-tab" aria-controls="pieces" role="tab" data-toggle="tab">Pieces</a></li>
+    <li role="presentation"><a href="#resources" id="resources-tab" aria-controls="resources" role="tab" data-toggle="tab">Resources</a></li>
+    <li role="presentation"><a href="#influences" id="influences-tab" aria-controls="profile" role="tab" data-toggle="tab">Influences</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="pieces" aria-labelledby="pieces-tab">
+		<div class="row">
+			{{#each exhibit.pieces}}
+				<div class="col-md-3">
+					{{>piece-preview}}
+				</div>
+			{{/each}}
+		</div>
+	</div>
+    <div role="tabpanel" class="tab-pane" id="resources" aria-labelledby="resources-tab">
 		<h3> Use these resources to prepare for your visit to the exhibit </h3>
 		{{#each exhibit.resources}}
 			{{>resource-panel}}
 		{{/each}}
+		<p> </p>
 	</div>
-
-	<div class="influences">
-		<h2> Influences </h2>
-		<h3> This exhibit drew inspiration from the following sources </h3>
+    <div role="tabpanel" class="tab-pane" id="influences" aria-labelledby="influences-tab">
+    		<h3> This exhibit drew inspiration from the following sources </h3>
 		{{#each exhibit.influences}}
 			{{>influence-panel}}
 		{{/each}}
-	</div>
+		<p> </p>
+    </div>
+  </div>
 
-	<div class="pieces">
-		<h2> Pieces </h2>
-		{{#each exhibit.pieces}}
-			{{>piece-preview}}
-		{{/each}}
-	</div>
+</div>

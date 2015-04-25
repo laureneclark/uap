@@ -9,6 +9,9 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var moment = require('moment');
+var async = require('async');
+var multer = require('multer');
+var done = false;
 
 // var routes = require('./routes/index');
 // var users = require('./routes/users');
@@ -45,6 +48,8 @@ var piece = require('./routes/piece');
 var users = require('./routes/users');
 var resource = require('./routes/resource');
 var influence = require('./routes/influence');
+var question = require('./routes/question');
+var contribution = require('./routes/contribution');
 
 app.use('/', index);
 app.use('/users', users);
@@ -52,6 +57,8 @@ app.use('/exhibit', exhibit);
 app.use('/resource', resource);
 app.use('/influence', influence);
 app.use('/piece', piece);
+app.use('/question', question);
+app.use('/contribution', contribution);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -83,6 +90,20 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+app.use(multer({ dest: '../public/images',
+ rename: function (fieldname, filename) {
+    return filename+Date.now();
+  },
+onFileUploadStart: function (file) {
+  console.log(file.originalname + ' is starting ...')
+},
+onFileUploadComplete: function (file) {
+  console.log(file.fieldname + ' uploaded to  ' + file.path)
+  done=true;
+}
+}));
+
 
 
 module.exports = app;

@@ -23,11 +23,11 @@ $(document).on('submit', '#login-form', function(evt) {
 });
 
 $(document).on('submit', '#signup-form', function(evt) {
-  console.log("I AM SIGNING UP");
+  //console.log("I AM SIGNING UP");
   evt.preventDefault();
   var formData = helpers.getFormData(this);
 
-  console.log(formData);
+  //console.log(formData);
   if (formData.password !== formData.confirm) {
     $('.error').text('The passwords do not match!');
     return;

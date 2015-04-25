@@ -1,0 +1,26 @@
+<div class = "container" id="user-page" data-user-id ={{user._id}}>
+	<div class = "page-header">
+		<h1> Welcome {{user.local.username}} </h1>
+	</div>
+
+	<div id="saved-resources">
+		<h2>Saved Resources</h2>
+		{{#each user.saved}}
+			{{>resource-panel}}
+		{{/each}}
+	</div>
+
+	<div id="visited-exhbits">
+		<h2>Visited Exhibits</h2>
+		{{#each user.visited}}
+			{{>exhibit-preview}}
+		{{/each}}
+	</div>
+
+	<div id="questions-contributed">
+		<h2>Questions You Have Contributed To</h2>
+		{{#each user.contributed}}
+			<h5> {{text}} </h5>
+		{{/each}}
+	</div>
+</div>

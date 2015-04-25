@@ -6,3 +6,19 @@ body {
 a {
   color: #00B7FF;
 }
+
+.welcome-text {
+	font:20pt;
+}
+
+.piece-img {
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.panel-heading-q{
+	background-color: #337ab7;
+  	border-color: #337ab7;
+}
+

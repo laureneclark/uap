@@ -26,7 +26,7 @@ $(document).on('click', '#logout-link', function(evt) {
     '/users/logout'
   ).done(function(response) {
     currentUser = undefined;
-    //$("#nav-items").remove();
+    $("#nav-items").remove();
     loadPage('welcome');
   }).fail(function(jqxhr) {
     var response = $.parseJSON(jqxhr.responseText);
@@ -46,13 +46,16 @@ $(document).on('click', '.view-exhibit-btn', function(evt) {
 
 //Redirect to that Piece Page 
 $(document).on('click', '.view-piece-btn', function(evt) {
-  console.log("I clicked this");
-    var exhibit_id = $(this).attr('id');
-    $.get('piece/' + exhibit_id, function(pieceResponse) {
-      var madeByUser = (response.createdBy === currentUser._id);
-      loadPage('exhibit', {piece: pieceResponse, conversation: conversationResponse })
-  });
+  //console.log("I clicked this");
+    var piece_id = $(this).attr('id');
+    loadPiecePage(piece_id);
 });
+
+//Redirect to user page
+$(document).on('click', '#profile-btn', function(evt) {
+
+  loadPage('user',{user: currentUser});
+})
 
 //START TO LOAD SCREEN//
 
@@ -75,13 +78,34 @@ $(document).ready(function() {
 
 
 var loadGallery = function() {
+  loadNav();
   $.get('/exhibit/', function(response) {
     loadPage('gallery', {user: currentUser, exhibits: response});
   });
-}
+};
 
 var loadCuratorPage = function() {
   //$.get('/users/', function(response) {
+    loadNav();
     loadPage('curator', {user: currentUser});
   //});
-}
+};
+
+var loadNav = function() {
+  var template = 'nav';
+  var data = {};
+  data = data || {};
+  var temp = Handlebars.templates[template](data)
+  $('#logged-in-nav').html(temp);
+};
+
+var loadPiecePage = function(piece_id) {
+  $.get('/piece/' + piece_id, function(piece) {
+    $.get('/piece/conversation/' + piece_id, function(conversation) {
+      //console.log("This is the conversations");
+      //console.log(conversation);
+      //console.log(conversation[1].username);
+      loadPage('piece', {piece: piece, conversation: conversation});
+    });
+  });
+};

@@ -1,0 +1,60 @@
+<h1>{{piece.title}}</h1>
+<h2>{{piece.artist}}</h2>
+<h3>{{piece.year}}</h3>
+
+<div class="row">
+  <div class = 'image-panel col-md-6'>
+  <img src={{piece.image}} class="img-responsive piece-img"> </img>
+  <form id        =  "uploadForm"
+     enctype   =  "multipart/form-data"
+     action    =  "/piece/image/{{piece._id}}"
+     method    =  "post"
+>
+<input type="file" name="uploadedImage" />
+<input type="hidden" value ={{piece_id}} name = "piece_id" id="piece_id_upload">
+<input type="submit"  value="Upload Image" name="submit">
+</form>
+  </div>
+
+  <div class="conversation-panel col-md-6">
+    <h3> Conversation </h3>
+    <!-- Form for adding a question -->
+  <button class="btn btn-sm" data-toggle="modal" data-target="#add-question-modal" id="add-question-modal-btn"> Add Question </button>
+  <!-- Modal -->
+  <div class="modal fade" id="add-question-modal" tabindex="-1" role="dialog" aria-labelledby="add-question-modal-label" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content"> 
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+      </button>
+      <h3 class="modal-title" id="add-question-modal-label">Add a Question</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-error">
+          {{#if form-error}}
+            {{form-error}}
+          {{/if}}
+        </div>
+  <form id="add-question-form" class="form-inline">
+      <div class="form-group">
+        <label for="add-question-text">Question</label>
+      <input type="text" name="text" id ="add-question-text" class="form-control" placeholder="question text" required />
+    </div>
+  </form>
+</div>
+    <div class="modal-footer">
+    <button type="button" class="btn" data-dismiss="modal">Close</button>
+      <button type="button" class="btn edit-btn" piece_id={{piece._id}} id="add-question-btn">Add</button>
+    </div>
+  </div>
+</div>
+</div>
+    {{#each conversation}} 
+      {{>question-panel}}
+      {{#each contributions}}
+        {{>contribution-panel}}
+      {{/each}}
+    {{/each}}
+  </div>
+</div>

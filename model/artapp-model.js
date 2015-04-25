@@ -14,6 +14,7 @@ var userSchema = mongoose.Schema({
 	},
 	saved: [{type: mongoose.Schema.Types.ObjectId, ref: 'Resource'}],
 	visited: [{type: mongoose.Schema.Types.ObjectId, ref: 'Exhibit'}],
+	contributed: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}], 
 	role: {type: String, default: "visitor"}
 });
 
@@ -45,7 +46,7 @@ var pieceSchema = mongoose.Schema({
 	year: String, //number or string?
 	artist: String, 
 	description: String, 
-	image: String, 
+	image: {type: String, default: 'images/blankImage.jpg'} //path to image
 });
 
 /*
@@ -58,7 +59,8 @@ var questionSchema = mongoose.Schema({
 	time: Date, 
 	author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}, 
 	text: {type: String, default: "What is your reaction to the piece?"}, 
-	piece: {type: mongoose.Schema.Types.ObjectId, ref: 'Piece'}
+	piece: {type: mongoose.Schema.Types.ObjectId, ref: 'Piece'},
+	contributions: []
 });
 
 /*
@@ -69,7 +71,7 @@ var contributionSchema = mongoose.Schema({
 	time: Date, 
 	author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}, 
 	text: String, 
-	question: {type: mongoose.Schema.Types.ObjectId, ref: 'Question'}
+	//question: {type: mongoose.Schema.Types.ObjectId, ref: 'Question'}
 });
 
 /*

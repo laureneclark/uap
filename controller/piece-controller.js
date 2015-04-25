@@ -1,6 +1,7 @@
 var models = require('../model/artapp-model.js');
 var moment = require('moment');
 var validator = require('validator');
+var async = require('async');
 
 var controller = function() {
 	return {
@@ -29,12 +30,26 @@ var controller = function() {
 		},
 
 		getConversation: function(req, res) {
-			//implement me!! 
+			responseArray = []
+			//console.log(req.params.piece_id);
+			models.Question.find({piece: req.params.piece_id}).populate('author contributions').exec(function(err, questions) {
+				//console.log(questions);
+				async.forEach(questions, function(item, callback) {
+					models.User.populate(item.contributions, {"path": "author"}, function(err, output) {
+						callback();
+					});
+				}, function(err) {
+				//console.log(questions);
+				res.status(200).json(questions);
+				})
+			});
 		},
 
 		getPiece: function(req, res) {
-			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
-			models.Piece.findByID(req.body.pieceid, function(err, piece) {
+			//console.log(req.params.piece_id)
+			//if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
+			models.Piece.findOne({_id:req.params.piece_id}).populate('questions').exec(function(err, piece) {
+				//console.log(piece);
 				if (err) {
 					res.status(400).json({err: "Something is wrong "});
 				}

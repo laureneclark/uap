@@ -1,0 +1,37 @@
+<div class="panel-primary question">
+	<div class="panel-heading">{{author.local.username}}</div>
+	<div class="panel-body">{{text}}</div>
+
+    <!-- Form for adding a contribution -->
+    	<button class="btn btn-sm" data-toggle="modal" data-target="#add-contribution-{{_id}}-modal" id="add-contribution-modal-btn"> Contribute! </button>
+    	<!-- Modal -->
+    	<div class="modal fade" id="add-contribution-{{_id}}-modal" tabindex="-1" role="dialog" aria-labelledby="add-contribution-modal-{{_id}}-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content"> 
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+          </button>
+          <h3 class="modal-title" id="add-contribution-{{_id}}-modal-label">Contribute!</h3>
+        </div>
+        <div class="modal-body">
+            <div class="form-error">
+              {{#if form-error}}
+                {{form-error}}
+              {{/if}}
+            </div>
+     	<form id="add-contribution-{{_id}}-form" class="form-inline">
+         	<div class="form-group">
+     	    	<label for="add-contribution-{{_id}}-text">Your Response</label>
+    			<input type="text" name="text" id ="add-contribution-{{_id}}-text" class="form-control" placeholder="contribution text" required />
+    		</div>
+    	</form>
+    </div>
+        <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+          <button type="button" class="btn edit-btn add-contribution-btn" id={{_id}}>Add</button>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>
