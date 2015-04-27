@@ -9,7 +9,14 @@
     {{/if}}
   </div>
  </div>
-<div class = "Exhibits">
-{{#each exhibits}}
-	{{>exhibit-preview}}
-{{/each}}
+<div class = "exhibits">
+	<div class="row">
+		{{#each exhibits}}
+			{{#if published}}
+				<div class="col-md-3 col-sm-4">
+					{{>exhibit-preview}}
+				</div>
+			{{/if}}
+		{{/each}}
+	</div>
+</div>

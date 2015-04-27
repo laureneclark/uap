@@ -82,7 +82,7 @@ var controller = function() {
 
 		getPieces: function(req, res) {
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
-			models.Exhibit.findById(req.exhibitid, function(err, exhibit) {
+			models.Exhibit.find({_id: req.exhibitid}, function(err, exhibit) {
 				if (err) return re.status(400).send(err);
 				res.status(200).json(exhibit.pieces);
 			});

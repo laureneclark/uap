@@ -17,8 +17,32 @@ a {
 	margin-right: auto;
 }
 
-.panel-heading-q{
-	background-color: #337ab7;
-  	border-color: #337ab7;
+.question{
+  	border-color: #28546C !important;
+  	width: 90%;
+}
+
+.contribution {
+	border-color: #28784D !important;
+	width: 90%;
+}
+
+.question-header {
+	background-color: #28546C !important;
+  	border-color: #28546C !important;
+}
+
+.contribution-header{
+	background-color: #28784D !important;
+  	border-color: #28784D !important;
+
+}
+
+.body {
+	background-image: url("../images/welcome.jpeg") !important;
+}
+
+.thumbnail {
+	height: 400px;
 }
 

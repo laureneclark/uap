@@ -12,7 +12,8 @@ var controller = function() {
 				year: validator.toString(req.body.year),
 				artist: validator.toString(req.body.artist),
 				description: validator.toString(req.body.description), 
-				image: req.body.image
+				image: req.body.image,
+				exhibit: req.body.addTo
 			});
 			piece.save(function(err) {
 				if(err) return res.status(400).json({err: "Couldn't add piece"});
@@ -32,7 +33,7 @@ var controller = function() {
 		getConversation: function(req, res) {
 			responseArray = []
 			//console.log(req.params.piece_id);
-			models.Question.find({piece: req.params.piece_id}).populate('author contributions').exec(function(err, questions) {
+			models.Question.find({piece: req.params.piece_id}).populate('author contributions').sort({ "time" : "asc"}).exec(function(err, questions) {
 				//console.log(questions);
 				async.forEach(questions, function(item, callback) {
 					models.User.populate(item.contributions, {"path": "author"}, function(err, output) {
@@ -48,10 +49,10 @@ var controller = function() {
 		getPiece: function(req, res) {
 			//console.log(req.params.piece_id)
 			//if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
-			models.Piece.findOne({_id:req.params.piece_id}).populate('questions').exec(function(err, piece) {
+			models.Piece.findOne({_id:req.params.piece_id}).populate('questions exhibit').exec(function(err, piece) {
 				//console.log(piece);
 				if (err) {
-					res.status(400).json({err: "Something is wrong "});
+					res.status(400).json({'error': "Something is wrong "});
 				}
 				res.status(200).json(piece);
 			});		

@@ -1,11 +1,11 @@
 <div class="panel-primary question">
-	<div class="panel-heading">{{author.local.username}}</div>
-	<div class="panel-body">{{text}}</div>
+	<div class="panel-heading question-header">{{author.local.username}}</div>
+	<div class="panel-body question">{{text}}</div>
 
     <!-- Form for adding a contribution -->
     	<button class="btn btn-sm" data-toggle="modal" data-target="#add-contribution-{{_id}}-modal" id="add-contribution-modal-btn"> Contribute! </button>
     	<!-- Modal -->
-    	<div class="modal fade" id="add-contribution-{{_id}}-modal" tabindex="-1" role="dialog" aria-labelledby="add-contribution-modal-{{_id}}-label" aria-hidden="true">
+    	<div class="modal fade add-contribution-modal" id="add-contribution-{{_id}}-modal" tabindex="-1" role="dialog" aria-labelledby="add-contribution-modal-{{_id}}-label" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content"> 
         <div class="modal-header">

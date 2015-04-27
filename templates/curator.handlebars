@@ -107,9 +107,13 @@
   </div>
 	<div id="curatorexhibits">
 	     <h2> Exhibits I Created </h2>
-	     {{#each exhibits}}
-	     	{{>exhibit-preview}}
-	     {{/each}}
+	     <div class="row">
+		     {{#each exhibits}}
+		     	<div class="col-md-3 col-sm-4">
+		     		{{>exhibit-preview}}
+		     	</div>
+		     {{/each}}
+	     </div>
 
 	</div>
 </div>

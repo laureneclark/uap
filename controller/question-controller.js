@@ -38,7 +38,10 @@ var controller = function() {
 			//console.log(quest);
 			quest.save(function(err) {
 				if(err) return res.status(400).json({err: "Couldn't add question"});
-				res.status(200).json(quest);
+				models.Piece.find({_id: req.body.piece_id}).populate('question').exec(function(err, piece) {
+					res.status(200).json(piece._id);
+				});
+			
 			});
 
 

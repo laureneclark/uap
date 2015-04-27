@@ -12,15 +12,20 @@
 
 	<div id="visited-exhbits">
 		<h2>Visited Exhibits</h2>
+		<div class="row">
 		{{#each user.visited}}
-			{{>exhibit-preview}}
+				<div class="col-md-3 col-sm-4">
+					{{>exhibit-preview}}
+				</div>
 		{{/each}}
+		</div>
 	</div>
 
 	<div id="questions-contributed">
 		<h2>Questions You Have Contributed To</h2>
 		{{#each user.contributed}}
 			<h5> {{text}} </h5>
+			<button class="btn view-piece-btn" id={{piece}}>View</button>
 		{{/each}}
 	</div>
 </div>

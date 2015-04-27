@@ -7,10 +7,16 @@ var loadPage = function(template, data) {
   $('#main-container').html(temp);
 };
 
-/*$(document).on('submit', '#curator-create-submit', function(evt) {
+$(document).on('click', '#create-curator-btn', function(evt) {
+  console.log("I clicked create curator");
+  var user = currentUser;
+  console.log(user);
   evt.preventDefault();
-  var formData = helpers.getFormData(this);
-  formData['type'] = 'curator';
+  var formData = helpers.getFormData($("#curator-creation-form"));
+  console.log(formData);
+  formData.role = 'curator';
+  console.log(formData);
+
   if (formData.password !== formData.confirm) {
     $('.error').text('The passwords do not match!');
     return;
@@ -21,16 +27,20 @@ var loadPage = function(template, data) {
   }
   delete formData['confirm'];
   $.post(
-    '/users/',
+    '/users/curator',
     formData
   ).done(function(response) {
-    currentUser = response.user;
-    window.location.href = '/';
+    console.log(response);
+    console.log(currentUser);
+    currentUser = user;
+    //window.location.href = '/';
+    console.log("load curator page I just fucking created a new curator");
+    console.log(currentUser);
+    window.location.reload(true);
   }).fail(function(jqxhr) {
     var response = $.parseJSON(jqxhr.responseText);
-    loadPage('signup', {error: response.error});
   });
-});*/
+});
 
 $(document).on('click', '#create-exhibit-btn', function(evt) {
 	//console.log("I Clicked Create");
@@ -44,12 +54,16 @@ $(document).on('click', '#create-exhibit-btn', function(evt) {
 		formData
 	).done(function(response) {
 		//console.log("I am done creating");
-		window.location.href = '/';
+    window.location.reload(true);
 	}).fail(function(jqxhr) {
 		var response = $.parseJSON(jqxhr.responseText);
 		loadPage('curator', {user: currentUser});
 	});
 });
+
+$(document).on('click', '#curator-panel-btn', function(evt) {
+  loadCuratorPage();
+})
 
 //Redirect to that Exhibit Page 
 $(document).on('click', '#view-exhibit-btn', function(evt) {
@@ -66,10 +80,20 @@ $(document).on('click', '#view-exhibit-btn', function(evt) {
 	});
 });
 
+var loadCuratorNav = function() {
+  var template ='curator-nav';
+  var data = {}
+  data = data || {};
+  var temp = Handlebars.templates[template](data)
+  $('#logged-in-nav').html(temp);
+}
 
 var loadCuratorPage = function() {
+  console.log("I am loading the curator page");
+  console.log(currentUser);
 	$.get('users/created', function(response) {
-		//console.log(response);
+		console.log(response);
+      loadCuratorNav();
     	loadPage('curator', {user: currentUser, exhibits: response});
 	});
 }

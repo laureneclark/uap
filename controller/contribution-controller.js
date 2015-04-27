@@ -4,22 +4,22 @@ var validator = require('validator');
 
 var controller = function() {
 	return {
-		getByQuest: function(req, res) {
-			if (!req.isAuthenticated()) return res.status(401).send({"error" : "You are not logged in"});
-			models.Contribution.find({question: req.body.questid}).exec(function(err, doc) {
-				if (err) return res.status(400).json({err: "There was an error"});
-				res.status(200).json(doc);
-			});
-		},
+		// getByQuest: function(req, res) {
+		// 	if (!req.isAuthenticated()) return res.status(401).send({"error" : "You are not logged in"});
+		// 	models.Contribution.find({question: req.body.questid}).exec(function(err, doc) {
+		// 		if (err) return res.status(400).json({err: "There was an error"});
+		// 		res.status(200).json(doc);
+		// 	});
+		// },
 
-		getByID: function(req, res) {
-			if (!req.isAuthenticated()) return res.status(401).send({"error" : "You are not logged in"});
-			models.Contribution.findById(req.body.contibutionid, function(err, doc) {
-				if (err) return res.status(400).json({err: "There was an error"});
-				res.status(200).json(doc);
-			});
+		// getByID: function(req, res) {
+		// 	if (!req.isAuthenticated()) return res.status(401).send({"error" : "You are not logged in"});
+		// 	models.Contribution.findById(req.body.contibutionid, function(err, doc) {
+		// 		if (err) return res.status(400).json({err: "There was an error"});
+		// 		res.status(200).json(doc);
+		// 	});
 
-		},
+		// },
 
 		addContribution: function(req, res) {
 			//if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
@@ -49,6 +49,7 @@ var controller = function() {
 								});
 							}
 							else {
+								console.log(question)
 								res.status(200).json(question.piece);
 							}
 

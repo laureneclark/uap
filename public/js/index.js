@@ -40,7 +40,8 @@ $(document).on('click', '.view-exhibit-btn', function(evt) {
     var exhibit_id = $(this).attr('id');
     $.get('exhibit/' + exhibit_id, function(response) {
       var madeByUser = (response.createdBy === currentUser._id);
-      loadPage('exhibit', {exhibit: response, madeByUser: madeByUser})
+      var visitor = (currentUser.role =='visitor');
+      loadPage('exhibit', {exhibit: response, madeByUser: madeByUser, visitor: visitor})
   });
 });
 
@@ -55,6 +56,11 @@ $(document).on('click', '.view-piece-btn', function(evt) {
 $(document).on('click', '#profile-btn', function(evt) {
 
   loadPage('user',{user: currentUser});
+});
+
+//Redirect to gallery
+$(document).on('click', '#gallery-link', function(evt) {
+  loadGallery();
 })
 
 //START TO LOAD SCREEN//
@@ -63,10 +69,12 @@ $(document).ready(function() {
   //see if the current user is logged in, and if so, redirect to feed page
   $.get('/users/current', function(response) {
     if (response.content.loggedIn && response.content.user.role == 'curator') {
+      console.log("I am a curator");
       currentUser = response.content.user;
       loadCuratorPage();
     }
     else if (response.content.loggedIn) {
+      console.log("I am not a curator");
       currentUser = response.content.user;
       loadGallery(); //redirect to main feed
     }
@@ -78,20 +86,25 @@ $(document).ready(function() {
 
 
 var loadGallery = function() {
+  console.log("loading gallery");
   loadNav();
   $.get('/exhibit/', function(response) {
     loadPage('gallery', {user: currentUser, exhibits: response});
   });
 };
 
-var loadCuratorPage = function() {
-  //$.get('/users/', function(response) {
-    loadNav();
-    loadPage('curator', {user: currentUser});
-  //});
-};
+// var loadCuratorPage = function() {
+//   //$.get('/users/', function(response) {
+//     console.log("loading curator page");
+//     console.log(currentUser);
+//     loadPage('curator', {user: currentUser});
+//   //});
+// };
+
+
 
 var loadNav = function() {
+  console.log("loading nav");
   var template = 'nav';
   var data = {};
   data = data || {};
@@ -99,13 +112,13 @@ var loadNav = function() {
   $('#logged-in-nav').html(temp);
 };
 
-var loadPiecePage = function(piece_id) {
-  $.get('/piece/' + piece_id, function(piece) {
-    $.get('/piece/conversation/' + piece_id, function(conversation) {
-      //console.log("This is the conversations");
-      //console.log(conversation);
-      //console.log(conversation[1].username);
-      loadPage('piece', {piece: piece, conversation: conversation});
-    });
-  });
-};
+// var loadPiecePage = function(piece_id, exhibit_id) {
+//   $.get('/piece/' + piece_id, function(piece) {
+//     $.get('/piece/conversation/' + piece_id, function(conversation) {
+//       //console.log("This is the conversations");
+//       //console.log(conversation);
+//       //console.log(conversation[1].username);
+//       loadPage('piece', {piece: piece, conversation: conversation});
+//     });
+//   });
+// };

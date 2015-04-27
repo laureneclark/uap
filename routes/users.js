@@ -76,7 +76,6 @@ router.post('/login', function(req, res, next){
     })(req, res, next);
 });
 
-module.exports = router;
 
 /* POST to logout */
 router.post('/logout', function(req, res){
@@ -89,6 +88,7 @@ router.post('/logout', function(req, res){
 */
 router.get('/current', function(req, res) {
   if (req.user) {
+    console.log(req.user);
     models.User.findOne({_id: req.user._id}).populate('saved visited contributed').exec(function(err, user) {
         res.status(200).json({content:{loggedIn: true, user: user}}).end();
     });

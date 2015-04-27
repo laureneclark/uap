@@ -38,6 +38,7 @@ router.get('/:exhibit_id', function(req, res){
 	models.Exhibit.findOne({_id: req.params.exhibit_id}).populate('resources influences pieces').exec(function(err, doc) {
 		//console.log("I go to here!!");
 		//console.log(doc);
+		console.log(doc);
 		if (err) {
 			console.log("There was an err");
 			res.status(400).json({err: "Exhibit does not exist"});

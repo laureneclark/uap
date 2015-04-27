@@ -29,22 +29,28 @@ router.post('/image/:piece_id',[ multer({ dest: './public/images'}), function(re
     //console.log(req.body) // form fields
     //console.log(req);
     //console.log(req.params);
-    //console.log(req.files);
-    var file = req.files.uploadedImage
-    var piece_id = req.params.piece_id
-    //console.log(piece_id);
-    models.Piece.findOne({_id: piece_id}, function(err, piece) {
-    	//console.log(piece);
-    	if (piece.image === 'images/blankImage.jpg') {
-    		piece.image = 'images/' + file.name;
-    		piece.save(function(err) {
-    			res.status(204).end();
-    		})
-    	}
-    	else {
-    		res.status(200).json({'error': "This piece alreday has an image"});
-    	}
-    }) 
+    console.log(req.files);
+    console.log(req.files.extension)
+    if (req.files.uploadedImage.extension === 'jpg' || req.files.uploadedImage.extenstion === 'png'){
+        var file = req.files.uploadedImage
+        var piece_id = req.params.piece_id
+        //console.log(piece_id);
+        models.Piece.findOne({_id: piece_id}, function(err, piece) {
+        	//console.log(piece);
+        	if (piece.image === 'images/blankImage.jpg') {
+        		piece.image = 'images/' + file.name;
+        		piece.save(function(err) {
+        			res.status(204).end();//json(piece);
+        		})
+        	}
+        	else {
+        		res.status(204).end();//json({'error': "This piece alreday has an image"});
+        	}
+        });
+    } 
+    else {
+        res.status(204).end();//.json({'error': "That is not a valid file type"});
+    }
 }]);
 
 /*

@@ -7,12 +7,18 @@
 	      {{error}}
 	    {{/if}}
 	</div>
-		<button class="edit-btn btn-sm" id="visit-exhibit-btn" exhibit_id={{exhibit._id}}>Visit</button>
+	{{#if visitor}}
+		<button class="btn btn-sm" id="visit-exhibit-btn" exhibit_id={{exhibit._id}}>Visit</button>
+	{{/if}}
+
 	{{#if madeByUser}} 
 
+	{{#if exhibit.published}}
+		<h4>Published</h4>
+	{{/if}}
 
 	<!-- Form for creating adding a Resource -->
-  	<button class="btn btn-lg" data-toggle="modal" data-target="#add-resource-modal" id="add-resource-modal-btn"> Add Resource </button>
+  	<button class="btn btn-sm" data-toggle="modal" data-target="#add-resource-modal" id="add-resource-modal-btn"> Add Resource </button>
   	<!-- Modal -->
   	<div class="modal fade" id="add-resource-modal" tabindex="-1" role="dialog" aria-labelledby="add-resource-modal-label" aria-hidden="true">
     <div class="modal-dialog">
@@ -65,7 +71,7 @@
 
 
 	<!-- Form for creating adding a Influence-->
-  	<button class="btn btn-lg" data-toggle="modal" data-target="#add-influence-modal" id="add-influence-modal-btn"> Add Influence </button>
+  	<button class="btn btn-sm" data-toggle="modal" data-target="#add-influence-modal" id="add-influence-modal-btn"> Add Influence </button>
   	<!-- Modal -->
   	<div class="modal fade" id="add-influence-modal" tabindex="-1" role="dialog" aria-labelledby="add-influence-modal-label" aria-hidden="true">
     <div class="modal-dialog">
@@ -85,17 +91,17 @@
 	 	<form id="add-influence-form" class="form-inline">
 
 			<div class="form group">
-				<label for="add-influence-artist"> Artist </label>
-				<input type="text" name="artist" id="add-influence-artist" class="form-control" required>
+				<label for="add-influence-artist">Artist</label>
+				<input type="text" name="artist" id="add-influence-artist" class="form-control" placeholder="Artist" required>
 	      	</div>
 
-			<div class="form group">
+<!-- 			<div class="form group">
 				<label for="add-influence-image"> Representative Image </label>
 				<input type="text" name="image" id="add-influence-image" class="form-control" required>
-	      	</div>
+	      	</div> -->
 
 	     	<div class="form-group">
-	 	    	<label for="add-influence-description"> Description </label> 
+	 	    	<label for="add-influence-description">Description</label> 
 				<input type="text" name="description" id ="add-influence-description" class="form-control" placeholder="Description of Influence Impact" required />
 			</div>
   		</form>
@@ -112,7 +118,7 @@
 
 
 	<!-- Form for adding a piece-->
-  	<button class="btn btn-lg" data-toggle="modal" data-target="#add-piece-modal" id="add-piece-modal-btn"> Add Piece </button>
+  	<button class="btn btn-sm" data-toggle="modal" data-target="#add-piece-modal" id="add-piece-modal-btn"> Add Piece </button>
   	<!-- Modal -->
   	<div class="modal fade" id="add-piece-modal" tabindex="-1" role="dialog" aria-labelledby="add-piece-modal-label" aria-hidden="true">
     <div class="modal-dialog">
@@ -132,27 +138,23 @@
 	 	<form id="add-piece-form" class="form-inline">
 
 	     	<div class="form-group">
-	 	    	<label for="add-piece-title"> Title </label>
-				<input type="text" name="title" id ="add-piece-title" class="form-control" placeholder="RPiece Title" required />
+	 	    	<label for="add-piece-title">Title</label>
+				<input type="text" name="title" id ="add-piece-title" class="form-control" placeholder="Piece Title" required />
 			</div>
 
 			<div class="form group">
-				<label for="add-piece-year"> Year </label>
-				<input type="text" name="year" id="add-piece-year" class="form-control" required>
+				<label for="add-piece-year">Year</label>
+				<input type="text" name="year" id="add-piece-year" class="form-control" placeholder="Year" required>
 	      	</div>
 
 			<div class="form group">
-				<label for="add-piece-artist"> Atrist </label>
-				<input type="text" name="artist" id="add-piece-artist" class="form-control" required>
+				<label for="add-piece-artist">Atrist</label>
+				<input type="text" name="artist" id="add-piece-artist" class="form-control" placeholder="Artist Name" required>
 	      	</div>
 
 	     	<div class="form-group">
-	 	    	<label for="add-piece-description"> Description </label> 
+	 	    	<label for="add-piece-description">Description</label> 
 				<input type="text" name="description" id ="add-piece-description" class="form-control" placeholder="Piece Description" required />
-			</div>
-	     	<div class="form-group">
-	 	    	<label for="add-piece-image"> Image </label> 
-				<input type="text" name="description" id ="add-piece-image" class="form-control" placeholder="Image Link" required />
 			</div>
   		</form>
 	</div>
@@ -163,8 +165,11 @@
       </div>
     </div>
   </div>
+  	{{#unless exhibit.published}}
 
-		<button class="btn btn-lg " exhibit_id={{exhibit._id}} id='publish'> Publish </button>
+		<button class="btn btn-sm" exhibit_id={{exhibit._id}} id='publish'> Publish </button>
+	{{/unless}}
+
 	{{/if}}
 
 	<div class="exhibit-info">

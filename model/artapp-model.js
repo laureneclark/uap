@@ -7,7 +7,7 @@ Schema for users. Users will have a email, username, and password associated wit
 Users have saved resources, visited exhibits, and a role (either vistor or curator )
 */
 var userSchema = mongoose.Schema({
-	email: {type: String, required: true},
+	//email: {type: String, required: true},
 	local:{
 		username: {type: String, required: true, unique: true, lowercase: true},
 		password: {type: String, required: true}
@@ -33,7 +33,8 @@ var exhibitSchema = mongoose.Schema({
 	resources: [{type: mongoose.Schema.Types.ObjectId, ref: 'Resource'}], 
 	influences: [{type: mongoose.Schema.Types.ObjectId, ref: 'Influence'}],
 	pieces: [{type: mongoose.Schema.Types.ObjectId, ref: 'Piece'}],
-	published: {type: Boolean, default: false}
+	published: {type: Boolean, default: false},
+	code: String
 });
 
 /*
@@ -46,7 +47,8 @@ var pieceSchema = mongoose.Schema({
 	year: String, //number or string?
 	artist: String, 
 	description: String, 
-	image: {type: String, default: 'images/blankImage.jpg'} //path to image
+	image: {type: String, default: 'images/blankImage.jpg'}, //path to image
+	exhibit: {type: mongoose.Schema.Types.ObjectId, ref: 'Exhibit'}
 });
 
 /*

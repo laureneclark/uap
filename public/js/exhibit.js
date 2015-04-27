@@ -92,6 +92,7 @@ $(document).on('click', '#publish', function(evt) {
     var exhibit_id = $(this).attr('exhibit_id');
     $.post('/exhibit/publish', {exhibit_id: exhibit_id}).done(function(response) {
       var madeByUser = (response.createdBy === currentUser._id);
-      loadPage('exhibit', {exhibit: response, madeByUser: madeByUser})
+      var visitor = (currentUser.role =='visitor');
+      loadPage('exhibit', {exhibit: response, madeByUser: madeByUser, visitor: visitor})
   });
 });
