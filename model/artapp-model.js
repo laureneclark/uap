@@ -15,7 +15,8 @@ var userSchema = mongoose.Schema({
 	saved: [{type: mongoose.Schema.Types.ObjectId, ref: 'Resource'}],
 	visited: [{type: mongoose.Schema.Types.ObjectId, ref: 'Exhibit'}],
 	contributed: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}], 
-	role: {type: String, default: "visitor"}
+	role: {type: String, default: "visitor"},
+	favorites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Piece'}]
 });
 
 /*
@@ -95,10 +96,7 @@ Associated with each influece are: a name (only if type == image), a link to an 
 the artist's name, a type (image or artist), and a decription of the influence on the exhibit pieces.
 */ 
 var influenceSchema = mongoose.Schema({
-	//name: String, 
-	image: String, 
-	artist: String, 
-	//type: String, //image or artist
+	piece: String, 
 	description: String
 });
 

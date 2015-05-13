@@ -1,2 +1,9 @@
-<h2>{{artist}}</h2>
-<h5>{{description}}</h5>
+<div class="thumbnail thumbnail-influence">
+	<img src={{piece.image}}>
+		<div class="caption">
+			<h3>{{piece.title}}</h3>
+			<p>{{piece.artist}}</p>
+			<h5>{{description}}</h5>
+			<button class="btn view-piece-btn" id={{piece._id}}>View Piece</button>
+		</div>
+</div>

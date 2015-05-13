@@ -27,7 +27,7 @@ var controller = function() {
 			models.User.findOne({_id: req.user._id}, function(err, user) {
 
 				var contribution = models.Contribution({
-					time: moment(), 
+					time: moment().format("D-M-YYYY H:mm:ss"), 
 					author: req.user._id, 
 					text: validator.toString(req.body.text)
 				});
@@ -49,7 +49,6 @@ var controller = function() {
 								});
 							}
 							else {
-								console.log(question)
 								res.status(200).json(question.piece);
 							}
 

@@ -17,7 +17,6 @@ module.exports = function(passport){
           un = validator.toString(un);
           //var email = req.body.email;
           var role = req.body.role;
-          console.log(role);
           //if(!validator.isEmail(validator.toString(email))) return done(null,false, "Your email is not in the correct form!");
           //server side username regex check
           if (/^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]?)*$/.test(un) !== true || un == "undefined"){

@@ -27,15 +27,13 @@ var controller = function() {
 		},
 
 		addQuestion: function(req, res) {
-			//console.log(req.body);
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
 			var quest = new models.Question({
-				time: moment(), 
+				time: moment().format("D-M-YYYY H:mm:ss"), 
 				author: req.user._id, 
 				text: validator.toString(req.body.text),
 				piece: req.body.piece_id
 			});
-			//console.log(quest);
 			quest.save(function(err) {
 				if(err) return res.status(400).json({err: "Couldn't add question"});
 				models.Piece.find({_id: req.body.piece_id}).populate('question').exec(function(err, piece) {

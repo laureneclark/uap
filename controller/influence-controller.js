@@ -11,8 +11,8 @@ var controller = function() {
 				//console.log("Found the exhibit");
 				var influence = new models.Influence({
 					//name: req.body.name, 
-					image: req.body.image, 
-					artist: validator.toString(req.body.artist), 
+					piece: req.body.piece, 
+					//artist: validator.toString(req.body.artist), 
 					//type: validator.toString(req.body.type), 
 					description: validator.toString(req.body.description)
 				});

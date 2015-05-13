@@ -18,18 +18,20 @@ a {
 }
 
 .question{
-  	border-color: #28546C !important;
+  	/*border-color: #28546C !important;*/
+  	float: left;
   	width: 90%;
 }
 
 .contribution {
+	float: right;
 	border-color: #28784D !important;
 	width: 90%;
 }
 
 .question-header {
-	background-color: #28546C !important;
-  	border-color: #28546C !important;
+/*	background-color: #28546C !important;
+  	border-color: #28546C !important;*/
 }
 
 .contribution-header{
@@ -42,7 +44,28 @@ a {
 	background-image: url("../images/welcome.jpeg") !important;
 }
 
-.thumbnail {
+.thumbnail-piece-pre {
 	height: 400px;
 }
+
+.thumbnail-influence {
+	height: 500px;
+}
+
+.back-btn {
+	height: 50px;
+}
+
+.piece-description {
+	padding-top:20px;
+}
+
+.metrics {
+	padding-top: 30px;
+}
+
+.curator-tools {
+	padding-top: 30px;
+}
+
 

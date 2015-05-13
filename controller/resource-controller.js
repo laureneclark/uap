@@ -16,7 +16,6 @@ var controller = function() {
 					addedBy: req.user._id
 				});
 				resource.save(function(err) {
-					console.log(resource.link);
 					if (err) res.status(400).json({err: "Error in creating the resource"});
 					exhibit.resources.push(resource);
 					exhibit.save(function(err) {

@@ -11,12 +11,12 @@ router.post('/', function(req, res) {
 	controller.addResource(req, res);
 });
 
-/*
-GET an resource by ID
-*/
-router.get('/:resource_id', function(req, res) {
-	controller.getByID(req, res);
-});
+// /*
+// GET an resource by ID
+// */
+// router.get('/:resource_id', function(req, res) {
+// 	controller.getByID(req, res);
+// });
 
 /*
 POST -save a resource

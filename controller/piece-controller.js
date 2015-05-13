@@ -32,25 +32,32 @@ var controller = function() {
 
 		getConversation: function(req, res) {
 			responseArray = []
-			//console.log(req.params.piece_id);
-			models.Question.find({piece: req.params.piece_id}).populate('author contributions').sort({ "time" : "asc"}).exec(function(err, questions) {
-				//console.log(questions);
+			models.Question.find({piece: req.params.piece_id}).populate('author contributions').sort({ "time" : "desc"}).exec(function(err, questions) {
 				async.forEach(questions, function(item, callback) {
 					models.User.populate(item.contributions, {"path": "author"}, function(err, output) {
 						callback();
 					});
 				}, function(err) {
-				//console.log(questions);
 				res.status(200).json(questions);
 				})
 			});
 		},
 
+		favoritePiece: function(req, res) {
+			var piece_id = req.body.piece_id;
+			models.User.findOne({_id: req.user._id}, function(err, user) {
+				user.favorites.push(user);
+				user.save(function(err) {
+					if (err) return res.status.json({'error': err});
+					res.status(200).json(piece_id);
+				})
+			})
+
+		},
+
 		getPiece: function(req, res) {
-			//console.log(req.params.piece_id)
 			//if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
 			models.Piece.findOne({_id:req.params.piece_id}).populate('questions exhibit').exec(function(err, piece) {
-				//console.log(piece);
 				if (err) {
 					res.status(400).json({'error': "Something is wrong "});
 				}
