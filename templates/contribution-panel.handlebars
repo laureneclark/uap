@@ -1,4 +1,15 @@
 <div class="panel panel-deafult panel-primary contribution">
 	<div class="panel-heading contribution-header">Posted by {{author.local.username}} at {{time}}</div>
-	<div class="panel-body">{{text}}</div>
+	<div class="panel-body">
+	<div class=convo-text> {{text}} </div>
+	{{#if piece}}
+		<div class="thumbnail thumbnail-piece-convo">
+			<img src={{piece.image}}>
+			<div class="caption">
+			<p>{{piece.title}}</p>
+			<p>{{piece.artist}}</p>
+			</div>
+		</div>
+	{{/if}}
+	</div>
 </div>

@@ -1,14 +1,25 @@
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['contribution-panel'] = template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helper, lambda=this.lambda, escapeExpression=this.escapeExpression, functionType="function", helperMissing=helpers.helperMissing;
-  return "<div class=\"panel panel-deafult panel-primary contribution\">\n	<div class=\"panel-heading contribution-header\">Posted by "
+templates['contribution-panel'] = template({"1":function(depth0,helpers,partials,data) {
+  var stack1, lambda=this.lambda, escapeExpression=this.escapeExpression;
+  return "		<div class=\"thumbnail thumbnail-piece-convo\">\n			<img src="
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.piece : depth0)) != null ? stack1.image : stack1), depth0))
+    + ">\n			<div class=\"caption\">\n			<p>"
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.piece : depth0)) != null ? stack1.title : stack1), depth0))
+    + "</p>\n			<p>"
+    + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.piece : depth0)) != null ? stack1.artist : stack1), depth0))
+    + "</p>\n			</div>\n		</div>\n";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var stack1, helper, lambda=this.lambda, escapeExpression=this.escapeExpression, functionType="function", helperMissing=helpers.helperMissing, buffer = "<div class=\"panel panel-deafult panel-primary contribution\">\n	<div class=\"panel-heading contribution-header\">Posted by "
     + escapeExpression(lambda(((stack1 = ((stack1 = (depth0 != null ? depth0.author : depth0)) != null ? stack1.local : stack1)) != null ? stack1.username : stack1), depth0))
     + " at "
     + escapeExpression(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"time","hash":{},"data":data}) : helper)))
-    + "</div>\n	<div class=\"panel-body\">"
+    + "</div>\n	<div class=\"panel-body\">\n	<div class=convo-text> "
     + escapeExpression(((helper = (helper = helpers.text || (depth0 != null ? depth0.text : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"text","hash":{},"data":data}) : helper)))
-    + "</div>\n</div>";
+    + " </div>\n";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.piece : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "	</div>\n</div>";
 },"useData":true});
 templates['curator-nav'] = template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   return "<div id ='nav-items' <ul class='navbar-nav nav'> \n     <ul class='nav navbar-nav navbar-right'>\n     <li><a href='#' id = 'curator-panel-btn'>Curator Panel</a></li>\n     <li><a href='#' id='logout-link'>Logout</a></li></ul>\n  </ul></div>";
@@ -47,15 +58,11 @@ templates['curator'] = template({"1":function(depth0,helpers,partials,data) {
 },"usePartial":true,"useData":true});
 templates['exhibit-preview'] = template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "<div class=\"panel-primary exhibit-preview\" data-exhibit-id="
+  return "<div class=\" panel panel-primary exhibit-preview\" data-exhibit-id="
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
-    + ">\n<div class=\"panel-heading\">"
+    + ">\n<div class=\"panel-heading exhibit-header\">"
     + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
-    + "</div>\n<div class = \"panel-body\">\n<!-- 	<h5>"
-    + escapeExpression(((helper = (helper = helpers.dateStart || (depth0 != null ? depth0.dateStart : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"dateStart","hash":{},"data":data}) : helper)))
-    + "</h5>\n	<h5>"
-    + escapeExpression(((helper = (helper = helpers.dateEnd || (depth0 != null ? depth0.dateEnd : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"dateEnd","hash":{},"data":data}) : helper)))
-    + "</h5> -->\n	<h5>"
+    + "</div>\n<div class = \"panel-body\">\n	<h5>"
     + escapeExpression(((helper = (helper = helpers.location || (depth0 != null ? depth0.location : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"location","hash":{},"data":data}) : helper)))
     + "</h5>\n	<button class=\"btn view-exhibit-btn\" id="
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
@@ -158,6 +165,18 @@ templates['exhibit'] = template({"1":function(depth0,helpers,partials,data) {
   if (stack1 != null) { buffer += stack1; }
   return buffer + "		</div>\n    </div>\n  </div>\n\n</div>";
 },"usePartial":true,"useData":true});
+templates['favorite-panel'] = template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "<div class=\"thumbnail thumbnail-favorite\">\n	<img src="
+    + escapeExpression(((helper = (helper = helpers.image || (depth0 != null ? depth0.image : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"image","hash":{},"data":data}) : helper)))
+    + ">\n		<div class=\"caption\">\n			<h5>"
+    + escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"title","hash":{},"data":data}) : helper)))
+    + "</h5>\n			<p>"
+    + escapeExpression(((helper = (helper = helpers.artist || (depth0 != null ? depth0.artist : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"artist","hash":{},"data":data}) : helper)))
+    + "</p>\n			<p>Piece ID: "
+    + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
+    + "</p>\n		</div>\n</div>";
+},"useData":true});
 templates['gallery'] = template({"1":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "      "
@@ -321,11 +340,15 @@ templates['question-panel'] = template({"1":function(depth0,helpers,partials,dat
   if (stack1 != null) { buffer += stack1; }
   return buffer + "            </div>\n     	<form id=\"add-contribution-"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
-    + "-form\" class=\"form-inline\">\n         	<div class=\"form-group\">\n     	    	<label for=\"add-contribution-"
+    + "-form\" class=\"form-inline\">\n         	<div class=\"form-group\">\n     	    	 <label for=\"add-contribution-"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
-    + "-text\">Your Response</label>\n    			<input type=\"text\" name=\"text\" id =\"add-contribution-"
+    + "-text\">Your Response</label>\n    			   <input type=\"text\" name=\"text\" id =\"add-contribution-"
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
-    + "-text\" class=\"form-control\" placeholder=\"contribution text\" required />\n    		</div>\n    	</form>\n    </div>\n        <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn\" data-dismiss=\"modal\">Close</button>\n          <button type=\"button\" class=\"btn edit-btn add-contribution-btn\" id="
+    + "-text\" class=\"form-control\" placeholder=\"contribution text\" required />\n             <label for=\"add-contribution-"
+    + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
+    + "-piece\">Piece ID</label>\n             <input type=\"text\" name=\"piece\" id=\"add-contribution-"
+    + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
+    + "-piece\" class=\"form-control\" placeholder=\"optional\" />\n    		</div>\n    	</form>\n    </div>\n        <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn\" data-dismiss=\"modal\">Close</button>\n          <button type=\"button\" class=\"btn edit-btn add-contribution-btn\" id="
     + escapeExpression(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"_id","hash":{},"data":data}) : helper)))
     + ">Add</button>\n        </div>\n      </div>\n    </div>\n    </div>\n</div>";
 },"useData":true});
@@ -371,7 +394,7 @@ templates['user'] = template({"1":function(depth0,helpers,partials,data) {
     + ">View</button>\n";
 },"7":function(depth0,helpers,partials,data) {
   var stack1, buffer = "				<div class=\"col-md-3 col-sm-4\">\n";
-  stack1 = this.invokePartial(partials['piece-preview'], '					', 'piece-preview', depth0, undefined, helpers, partials, data);
+  stack1 = this.invokePartial(partials['favorite-panel'], '					', 'favorite-panel', depth0, undefined, helpers, partials, data);
   if (stack1 != null) { buffer += stack1; }
   return buffer + "				</div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {

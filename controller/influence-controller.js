@@ -6,14 +6,13 @@ var controller = function() {
 	return {
 		addInfluence: function(req, res) {
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
-			//console.log(req.body.addTo);
+		
 			models.Exhibit.findOne({_id: req.body.addTo}, function(err, exhibit) {
-				//console.log("Found the exhibit");
+		
 				var influence = new models.Influence({
-					//name: req.body.name, 
+				
 					piece: req.body.piece, 
-					//artist: validator.toString(req.body.artist), 
-					//type: validator.toString(req.body.type), 
+			
 					description: validator.toString(req.body.description)
 				});
 				influence.save(function(err) {

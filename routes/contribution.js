@@ -24,7 +24,6 @@ router.get('/quest/:q_id', function(req, res) {
 POST add contribution to question
 */
 router.post('/', function(req, res) {
-	//console.log("I posted to this!!!");
 	controller.addContribution(req, res);
 });
 

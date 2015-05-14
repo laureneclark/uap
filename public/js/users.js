@@ -1,4 +1,5 @@
 currentUser = undefined;
+Handlebars.registerPartial('favorite-panel', Handlebars.templates['favorite-panel']);
 //Loads a template into the #main-container div on the page
 var loadPage = function(template, data) {
   data = data || {};

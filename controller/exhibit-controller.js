@@ -19,7 +19,6 @@ var controller = function() {
 			});
 			exhibit.save(function(err) {
 				if (err) {
-					console.log("There was an error saving");
 					return res.status(400).json({'error': 'Something went wrong creating the exhibit'});
 				}
 				res.status(200).json(exhibit);
@@ -32,7 +31,6 @@ var controller = function() {
 				foundExhibit.published = true;
 				foundExhibit.save(function(err){
 					if (err) {
-						console.log("There was an error saving exhibit");
 						return res.status(400).json({'error': 'Something wen wrong updating the exhibit'});
 					}
 					res.status(200).json(foundExhibit);
@@ -48,7 +46,6 @@ var controller = function() {
 				if (err) return res.status(400).send(err);
 				models.Exhibit.findOne({_id: req.body.exhibit_id}, function(err, exhibit) {
 					if (user.visited.indexOf(exhibit._id) < 0) {
-						//console.log(exhibit);
 						user.visited.push(exhibit);
 						user.save(function(err) {
 							if (err) return res.status(400).send(err);
@@ -84,19 +81,18 @@ var controller = function() {
 			var numSaved = 0;
 			var numContributed = 0;
 			var exhibit_id = req.params.exhibit_id
-			console.log(exhibit_id)
 			models.Exhibit.findOne({_id: exhibit_id}).populate('pieces').exec(function(err, exhibit) {
-				console.log(exhibit.pieces);
+		
 				for (var k=0; k<(exhibit.pieces).length; k++) {
-					console.log(k)
+			
 					var piece = exhibit.pieces[k]
 					models.Question.find({piece: piece._id}, function(err, questions) {
-						console.log(questions)
+					
 						for (var q=0; q<questions.length; q++) {
 							var quest = questions[q];
 
 							numContributed += quest.contributions.length
-							console.log(numContributed);
+				
 						}
 					} )
 				}

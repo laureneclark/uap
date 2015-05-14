@@ -74,6 +74,7 @@ var contributionSchema = mongoose.Schema({
 	time: Date, 
 	author: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}, 
 	text: String, 
+	piece: {type: mongoose.Schema.Types.ObjectId, ref: 'Piece'}
 	//question: {type: mongoose.Schema.Types.ObjectId, ref: 'Question'}
 });
 

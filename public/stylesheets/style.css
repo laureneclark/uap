@@ -40,6 +40,10 @@ a {
 
 }
 
+.exhibit-header{
+	height: 60px;
+}
+
 .body {
 	background-image: url("../images/welcome.jpeg") !important;
 }
@@ -50,6 +54,20 @@ a {
 
 .thumbnail-influence {
 	height: 500px;
+}
+
+.thumbnail-favorite {
+	height: 400px;
+}
+
+.thumbnail-piece-convo {
+	height: 200px;
+	width: 33%;
+	float:right;
+}
+
+.convo-text{
+	width: 66%;
 }
 
 .back-btn {

@@ -22,18 +22,40 @@ var controller = function() {
 		// },
 
 		addContribution: function(req, res) {
+			console.log("Adding contribution");
+			console.log(req.body);
 			//if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
 				//if (err) return res.status(400).send(err);
 			models.User.findOne({_id: req.user._id}, function(err, user) {
-
-				var contribution = models.Contribution({
-					time: moment().format("D-M-YYYY H:mm:ss"), 
+				if (req.body.piece != "") {
+					var piece = req.body.piece;
+					var contribution = models.Contribution({
+					time: moment(), 
+					author: req.user._id, 
+					text: validator.toString(req.body.text),
+					piece: piece
+				});
+				}
+				else {
+					console.log("ME");
+					var contribution = models.Contribution({
+					time: moment(), 
 					author: req.user._id, 
 					text: validator.toString(req.body.text)
-				});
+					});
+				}
+
 				contribution.save(function(err) {
-					if (err) return res.status(400).json({'error': 'Something went wrong with creating the contribution!'});
+					console.log("Trying to save");
+					if (err) {
+						console.log("Error in the save");
+						console.log(err)
+						return res.status(400).json({'error': 'Something went wrong with creating the contribution!'});
+					}
+					console.log(req.body.question_id)
 					models.Question.findOne({_id: req.body.question_id}, function(err, question) {
+						console.log("I found a question");
+						console.log(question);
 						question.contributions.push(contribution);
 						question.save(function(err) {
 							if (err) {

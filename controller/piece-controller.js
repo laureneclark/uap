@@ -35,7 +35,10 @@ var controller = function() {
 			models.Question.find({piece: req.params.piece_id}).populate('author contributions').sort({ "time" : "desc"}).exec(function(err, questions) {
 				async.forEach(questions, function(item, callback) {
 					models.User.populate(item.contributions, {"path": "author"}, function(err, output) {
-						callback();
+						models.Piece.populate(item.contributions, {"path": "piece"}, function(err, output2) {
+							callback();
+
+						})
 					});
 				}, function(err) {
 				res.status(200).json(questions);
@@ -46,8 +49,9 @@ var controller = function() {
 		favoritePiece: function(req, res) {
 			var piece_id = req.body.piece_id;
 			models.User.findOne({_id: req.user._id}, function(err, user) {
-				user.favorites.push(user);
+				user.favorites.push(piece_id);
 				user.save(function(err) {
+			
 					if (err) return res.status.json({'error': err});
 					res.status(200).json(piece_id);
 				})

@@ -36,12 +36,12 @@ var controller = function() {
 		}, 
 
 		getCuratorExhibits: function(req, res) {
-			//console.log(req.user);
+
 			if (!req.isAuthenticated()) return res.status(401).send({'error': 'You are not logged in'});
 			if (req.user.role != 'curator') return res.status(401).send({'error': "Sorry, you are not a curator"});
 			
 			models.Exhibit.find({createdBy: req.user._id}).populate('influences resources pieces').exec(function(err, exhibits) {
-				//console.log(exhibits);
+				
 				if (err) return res(400).send(err);
 				res.status(200).json(exhibits);
 			});

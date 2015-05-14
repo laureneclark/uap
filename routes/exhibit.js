@@ -6,13 +6,11 @@ var moment = require('moment');
 var jquery = require('jquery');
 var controller = require('../controller/exhibit-controller.js');
 var async = require('async');
-//INCLUDE ADDING PIECE TO AN EXHIBIT/////
 
 /*
 GET all exhibits 
 */
 router.get('/', function(req, res) {
-	//console.log("Trying to get all exhibits");
 	//if (!req.isAuthenitcated()) return res.status(401).send({err: "Error, not logged in"});
 	models.Exhibit.find({}).populate('resources influences pieces').exec( function(err, doc){
 		if (err) {
@@ -28,24 +26,21 @@ GET a specific exhibit
 */ 
 router.get('/:exhibit_id', function(req, res){
 	models.Exhibit.findOne({_id: req.params.exhibit_id}).populate('resources influences pieces').exec(function(err, doc) {
-		console.log("I go to here!!");
-		//console.log(doc);
-		console.log(doc.influences);
 		if (err) {
-			console.log("There was an err");
 			res.status(400).json({err: "Exhibit does not exist"});
 		}
+		if (doc.influences.length === 0) {
+			res.status(200).json(doc);
+		}
 		async.forEach(doc.influences, function(item, callback) {
-			console.log("Trying");
-			console.log(item);
+
 			models.Piece.populate(item, {"path":"piece"}, function(err, output) {
 				callback();
 			});
-		}, function(err) {
-				console.log("This is happening");
 				res.status(200).json(doc);
 			})
 	});
+
 });
 
 /*
