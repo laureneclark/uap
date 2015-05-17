@@ -52,10 +52,10 @@ $(document).on('click', '#add-piece-btn', function(evt) {
     '/piece/',
     formData
   ).done(function(response) {
-    window.location.href = '/';
+    //window.location.href = '/';
+    loadPage('exhibit', {exhibit: response, madeByUser: true, visitor: false})
   }).fail(function(jqxhr) {
     var response = $.parseJSON(jqxhr.responseText);
-    //loadPage('exhibit', {exhibit: }
   });
 });
 
@@ -75,11 +75,11 @@ $(document).on('click', '#save-resource-btn', function(evt) {
 
 $(document).on('click', '#visit-exhibit-btn', function(evt) {
   evt.preventDefault();
-  var data = {};
-  data.exhibit_id = $(this).attr('exhibit_id');
+  var formData = helpers.getFormData($("#visit-form"));
+  formData.exhibit_id = $(this).attr('exhibit_id');
   $.post(
     '/exhibit/visit', 
-    data
+    formData
     ).done(function(response) {
       window.location.href = '/';
     }).fail(function(jqxhr){
@@ -93,6 +93,8 @@ $(document).on('click', '#publish', function(evt) {
     $.post('/exhibit/publish', {exhibit_id: exhibit_id}).done(function(response) {
       var madeByUser = (response.createdBy === currentUser._id);
       var visitor = (currentUser.role =='visitor');
+      response.dateStart = moment(response.dateStart).format("MMM Do YYYY");
+      response.dateEnd = moment(response.dateEnd).format("MMM Do YYYY");
       loadPage('exhibit', {exhibit: response, madeByUser: madeByUser, visitor: visitor})
   });
 });

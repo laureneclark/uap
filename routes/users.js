@@ -83,7 +83,6 @@ router.post('/logout', function(req, res){
 router.get('/current', function(req, res) {
   if (req.user) {
     models.User.findOne({_id: req.user._id}).populate('saved visited favorites contributed').exec(function(err, user) {
-        console.log(user);
         res.status(200).json({content:{loggedIn: true, user: user}}).end();
     });
   } 

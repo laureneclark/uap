@@ -7,7 +7,6 @@ Schema for users. Users will have a email, username, and password associated wit
 Users have saved resources, visited exhibits, and a role (either vistor or curator )
 */
 var userSchema = mongoose.Schema({
-	//email: {type: String, required: true},
 	local:{
 		username: {type: String, required: true, unique: true, lowercase: true},
 		password: {type: String, required: true}

@@ -201,8 +201,42 @@
 			<h4> Location: {{exhibit.location}} </h4>
 			</div>
 			</div>
-			{{#if visitor}}
-		<button class="btn btn-sm" id="visit-exhibit-btn" exhibit_id={{exhibit._id}}>Visit</button>
+	{{#if visitor}}
+
+	<!-- Form for visiting an exhibit-->
+  	<button class="btn btn-sm" data-toggle="modal" data-target="#visit-modal" id="visit-modal-btn">Visit</button>
+  	<!-- Modal -->
+  	<div class="modal fade" id="visit-modal" tabindex="-1" role="dialog" aria-labelledby="visit-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content"> 
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+          </button>
+          <h3 class="modal-title" id="visit-modal-label">Enter Exhibit Code</h3>
+        </div>
+        <div class="modal-body">
+            <div class="form-error">
+              {{#if form-error}}
+                {{form-error}}
+              {{/if}}
+            </div>
+	 	<form id="visit-form" class="form-inline">
+
+			<div class="form group">
+<!-- 				<label for="visit-code"></label> -->
+				<input type="text" name="code" id="visit-code" class="form-control" required>
+	      	</div>
+
+  		</form>
+	</div>
+        <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+          <button type="button" class="btn edit-btn" exhibit_id={{exhibit._id}} id="visit-exhibit-btn">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
 	{{/if}}
   		</div>
   	</div>

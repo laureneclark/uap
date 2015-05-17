@@ -32,13 +32,17 @@ router.get('/:exhibit_id', function(req, res){
 		if (doc.influences.length === 0) {
 			res.status(200).json(doc);
 		}
+		else {
 		async.forEach(doc.influences, function(item, callback) {
 
 			models.Piece.populate(item, {"path":"piece"}, function(err, output) {
 				callback();
 			});
+			}, function(err) {
 				res.status(200).json(doc);
 			})
+	}
+
 	});
 
 });

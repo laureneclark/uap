@@ -12,19 +12,15 @@ var loadPage = function(template, data) {
 
 //Add A Question 
 $(document).on('click', '#add-question-btn', function(evt) {
-	//console.log("I clicked add question");
 	evt.preventDefault();
-  	//console.log("I clicked this");
     var piece_id = $(this).attr('piece_id');
   	var formData = helpers.getFormData($("#add-question-form"));
   	formData.piece_id = piece_id;
-  	//formData.author = currentUser;
-  	//console.log(formData);
   	$.post(
   		'/question/', 
   		formData
   	).done(function(response) {
-  		//console.log(response);
+      window.location.reload(true);
   		loadPiecePage(response);
 });
   });
@@ -39,9 +35,7 @@ $(document).on('click', '.add-contribution-btn', function(evt) {
       '/contribution/', 
       formData
     ).done(function(response) {
-      var cString = '#add-contribution-' + question_id + '-modal';
-      $(cString).modal('hide');
-      //window.location.href = '/';
+      $('.modal-backdrop').remove();
       loadPiecePage(response);
   });
 });
@@ -60,6 +54,8 @@ $(document).on('click', '.back-to-exhibit', function(evt) {
   $.get('/exhibit/' + exhibit_id, function(response) {
       var madeByUser = (response.createdBy === currentUser._id);
       var visitor = (currentUser.role =='visitor');
+      response.dateStart = moment(response.dateStart).format("MMM Do YYYY");
+      response.dateEnd = moment(response.dateEnd).format("MMM Do YYYY");
       loadPage('exhibit', {exhibit: response, madeByUser: madeByUser, visitor: visitor})
 
   })
@@ -77,13 +73,21 @@ var loadPiecePage = function(piece_id) {
       //window.location.href = '/';
 		}).then(function(conversation) {
         var createdBy = (currentUser._id === piece.exhibit.createdBy)
+        var visited = false;
+        var favorite = false;
+        if (currentUser.visited.indexOf(JSON.stringify(piece.exhibit)) >= 0) {
+          visited = true;
+        };
+        if (currentUser.favorites.indexOf(piece._id) >=0) {
+          favorite = true;
+        }
         for (i=0; i< conversation.length; i++) {
           conversation[i].time = moment(conversation[i].time).format("MMM Do YYYY");
           for (j=0; j< (conversation[i].contributions).length; j++) {
             conversation[i].contributions[j].time = moment(conversation[i].contributions[j].time).format("MMM Do YYYY");
           }
         }
-        loadPage('piece', {piece: piece, conversation: conversation, createdBy: createdBy});
+        loadPage('piece', {piece: piece, conversation: conversation, createdBy: createdBy, visited: visited, favorite: favorite});
 
     })
 	});

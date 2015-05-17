@@ -8,17 +8,19 @@ var controller = function() {
 			if (!req.isAuthenticated()) return res.status(401).send({'error' : 'You are not logged in'});
 			var exhibit =  new models.Exhibit({
 				title: validator.toString(req.body.title),
-				dateStart: moment(req.body.dateStart).format("D-M-YYYY H:mm:ss"), 
-				dateEnd: moment(req.body.dateEnd).format("D-M-YYYY H:mm:ss"), 
+				dateStart: moment(req.body.dateStart), 
+				dateEnd: moment(req.body.dateEnd), 
 				location: validator.toString(req.body.location), 
 				description: validator.toString(req.body.description), 
 				createdBy: req.user._id,
 				resources: [], 
 				influences: [], 
-				pieces: []
+				pieces: [],
+				code: req.body.code
 			});
 			exhibit.save(function(err) {
 				if (err) {
+					console.log(err);
 					return res.status(400).json({'error': 'Something went wrong creating the exhibit'});
 				}
 				res.status(200).json(exhibit);
@@ -45,7 +47,7 @@ var controller = function() {
 			models.User.findById(req.user._id, function(err, user) {
 				if (err) return res.status(400).send(err);
 				models.Exhibit.findOne({_id: req.body.exhibit_id}, function(err, exhibit) {
-					if (user.visited.indexOf(exhibit._id) < 0) {
+					if (user.visited.indexOf(exhibit._id) < 0 && (exhibit.code === req.body.code)) {
 						user.visited.push(exhibit);
 						user.save(function(err) {
 							if (err) return res.status(400).send(err);

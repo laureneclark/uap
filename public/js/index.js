@@ -37,16 +37,12 @@ $(document).on('click', '#logout-link', function(evt) {
 
 //Redirect to that Exhibit Page 
 $(document).on('click', '.view-exhibit-btn', function(evt) {
-  console.log("View Exhibit Button");
     var exhibit_id = $(this).attr('id');
-    console.log(exhibit_id);
     $.get('exhibit/' + exhibit_id, function(response) {
-      console.log(response);
       var madeByUser = (response.createdBy === currentUser._id);
       var visitor = (currentUser.role =='visitor');
       response.dateStart = moment(response.dateStart).format("MMM Do YYYY");
       response.dateEnd = moment(response.dateEnd).format("MMM Do YYYY");
-      console.log(response.published);
       if (madeByUser && response.published) {
         $.get('exhibit/metrics/' + exhibit_id, function(metrics) {
           loadPage('exhibit', {exhibit: response, madeByUser: madeByUser, visitor: visitor, metrics:metrics})   
@@ -79,7 +75,6 @@ $(document).on('click', '#gallery-link', function(evt) {
 $(document).ready(function() {
   //see if the current user is logged in, and if so, redirect to feed page
   $.get('/users/current', function(response) {
-    //console.log(response.content.user.favorites);
     if (response.content.loggedIn && response.content.user.role == 'curator') {
       currentUser = response.content.user;
       loadCuratorPage();
